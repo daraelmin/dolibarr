@@ -496,7 +496,7 @@ print '<table class="noborder centpercent">';
 print '<tr class="liste_titre">';
 print '<th rowspan="2">'.$langs->trans("MembersTypes").'</th>';
 print '<th rowspan="2" class=right>'.$langs->trans("MembersStatusToValid").'</th>';
-print '<th colspan="3" class=right>'.$langs->trans("MenuMembersValidated").'</th>';
+print '<th colspan="3" class=center>'.$langs->trans("MenuMembersValidated").'</th>';
 print '<th rowspan="2" class=right>'.$langs->trans("MembersStatusResiliated").'</th>';
 print "</tr>\n";
 
@@ -520,7 +520,7 @@ print '<tr class="liste_total">';
 print '<td class="liste_total">'.$langs->trans("Total").'</td>';
 print '<td class="liste_total right">'.$SommeA.' '.$staticmember->LibStatut(-1, $adhtype->subscription, 0, 3).'</td>';
 print '<td class="liste_total right">'.$SommeB.' '.$staticmember->LibStatut(1, $adhtype->subscription, 0, 3).'</td>';
-print '<td class="liste_total right">'.$SommeC.' '.$staticmember->LibStatut(1, 1, 0, 3).'</td>';
+print '<td class="liste_total right">'.$SommeC.' '.$staticmember->LibStatut(1, $adhtype->subscription, 1, 3).'</td>';
 print '<td class="liste_total right">'.$SommeD.' '.$staticmember->LibStatut(1, $adhtype->subscription, $now, 3).'</td>';
 print '<td class="liste_total right">'.$SommeE.' '.$staticmember->LibStatut(0, $adhtype->subscription, 0, 3).'</td>';
 print '</tr>';
