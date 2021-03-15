@@ -80,7 +80,7 @@ $subscriptionstatic = new Subscription($db);
 print load_fiche_titre($langs->trans("MembersArea"), $resultboxes['selectboxlist'], 'members');
 
 $MembersValidated = array();
-$MembersWithoutSubscritpion = array();
+$MembersNoSubscritpion = array();
 $MembersToValidate = array();
 $MembersUpToDate = array();
 $MembersResiliated = array();
@@ -134,7 +134,7 @@ $now = dol_now();
 $sql = "SELECT count(*) as somme , d.fk_adherent_type";
 $sql .= " FROM ".MAIN_DB_PREFIX."adherent as d, ".MAIN_DB_PREFIX."adherent_type as t";
 $sql .= " WHERE d.entity IN (".getEntity('adherent').")";
-$sql .= " AND d.statut = 1 AND (d.datefin >= '".$db->idate($now)."')"; // OR t.subscription = 0)";
+$sql .= " AND d.statut = 1 AND (d.datefin >= '".$db->idate($now)."' AND t.subscription = 1)";
 $sql .= " AND t.rowid = d.fk_adherent_type";
 $sql .= " GROUP BY d.fk_adherent_type";
 
@@ -151,7 +151,7 @@ if ($result) {
 	$db->free();
 }
 
-// Members whithout subscription
+// Members whith no subscription needed
 $sql = "SELECT count(*) as somme , d.fk_adherent_type";
 $sql .= " FROM ".MAIN_DB_PREFIX."adherent as d, ".MAIN_DB_PREFIX."adherent_type as t";
 $sql .= " WHERE d.entity IN (".getEntity('adherent').")";
@@ -166,7 +166,7 @@ if ($result) {
 	$i = 0;
 	while ($i < $num) {
 		$objp = $db->fetch_object($result);
-		$MembersWhithoutSubscription[$objp->fk_adherent_type] = $objp->somme;
+		$MembersNoSubscription[$objp->fk_adherent_type] = $objp->somme;
 		$i++;
 	}
 	$db->free();
@@ -215,37 +215,37 @@ if ($conf->use_javascript_ajax) {
 	$boxgraph .='<tr class="liste_titre"><th colspan="2">'.$langs->trans("Statistics").'</th></tr>';
 	$boxgraph .='<tr><td class="center" colspan="2">';
 
-	$SommeA = 0;
-	$SommeB = 0;
-	$SommeC = 0;
-	$SommeD = 0;	
-	$SommeE = 0;
+	$SumToValidate = 0;
+	$SumNoSubscritpion = 0;
+	$SumOutOfDate = 0;
+	$SumUpToDate = 0;	
+	$SumResiliated = 0;
 	
 	$total = 0;
 	$dataval = array();
 	$i = 0;
 	foreach ($AdherentType as $key => $adhtype) {
 		$dataval['draft'][] = array($i, isset($MembersToValidate[$key]) ? $MembersToValidate[$key] : 0);
-		$dataval['withoutsubscription'][] = array($i, isset($MembersWithoutSubscription[$key]) ? $MembersWithoutSubscription[$key] : 0);
-		$dataval['notuptodate'][] = array($i, isset($MembersValidated[$key]) ? $MembersValidated[$key] - (isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0) - (isset($MembersUpToDate[$key]) ? $MembersWithoutSubscription[$key] : 0) : 0);
+		$dataval['nosubscription'][] = array($i, isset($MembersNoSubscription[$key]) ? $MembersNoSubscription[$key] : 0);
+		$dataval['notuptodate'][] = array($i, isset($MembersValidated[$key]) ? $MembersValidated[$key] - (isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0) - (isset($MembersUpToDate[$key]) ? $MembersNoSubscription[$key] : 0) : 0);
 		$dataval['uptodate'][] = array($i, isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0);
 		$dataval['resiliated'][] = array($i, isset($MembersResiliated[$key]) ? $MembersResiliated[$key] : 0);
 		
-		$SommeA += isset($MembersToValidate[$key]) ? $MembersToValidate[$key] : 0;
-		$SommeB += isset($MembersWithoutSubscritpion[$key]) ? $MembersWithoutSubscritpion[$key] : 0;
-		$SommeC += isset($MembersValidated[$key]) ? $MembersValidated[$key] - (isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0) - (isset($MembersWithoutSubscritpion[$key]) ? $MembersWithoutSubscritpion[$key] : 0) : 0;
-		$SommeD += isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0;
-		$SommeE += isset($MembersResiliated[$key]) ? $MembersResiliated[$key] : 0;
+		$SumToValidate += isset($MembersToValidate[$key]) ? $MembersToValidate[$key] : 0;
+		$SumNoSubscritpion += isset($MembersNoSubscritpion[$key]) ? $MembersNoSubscritpion[$key] : 0;
+		$SumOutOfDate += isset($MembersValidated[$key]) ? $MembersValidated[$key] - (isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0) - (isset($MembersNoSubscritpion[$key]) ? $MembersNoSubscritpion[$key] : 0) : 0;
+		$SumUpToDate += isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0;
+		$SumResiliated += isset($MembersResiliated[$key]) ? $MembersResiliated[$key] : 0;
 		
 		$i++;
 	}
-	$total = $SommeA + $SommeB + $SommeC + $SommeD + $SommeE;
+	$total = $SumToValidate + $SumNoSubscritpion + $SumOutOfDate + $SumUpToDate + $SumResiliated;
 	$dataseries = array();
-	$dataseries[] = array($langs->transnoentitiesnoconv("OutOfDate"), round($SommeB));
-	$dataseries[] = array($langs->transnoentitiesnoconv("UpToDate"), round($SommeC));
-	$dataseries[] = array($langs->transnoentitiesnoconv("MembersStatusResiliated"), round($SommeD));
-	$dataseries[] = array($langs->transnoentitiesnoconv("MembersWhithoutSubscription"), round($SommeE));
-	$dataseries[] = array($langs->transnoentitiesnoconv("MembersStatusToValid"), round($SommeA));
+	$dataseries[] = array($langs->transnoentitiesnoconv("OutOfDate"), round($SumOutOfDate));
+	$dataseries[] = array($langs->transnoentitiesnoconv("UpToDate") . " + " . $langs->transnoentitiesnoconv("WithoutSubscription"), round($SumUpToDate) + round($SumNoSubscritpion));
+	$dataseries[] = array($langs->transnoentitiesnoconv("MembersStatusResiliated"), round($SumResiliated));  
+	$dataseries[] = array($langs->transnoentitiesnoconv("MembersStatusToValid"), round($SumToValidate));
+  //$dataseries[] = array($langs->transnoentitiesnoconv("WithoutSubscription"), round($SumNoSubscritpion));
 
 	include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
 
@@ -262,7 +262,7 @@ if ($conf->use_javascript_ajax) {
 
 	$boxgraph .= '</td></tr>';
 	$boxgraph .= '<tr class="liste_total"><td>'.$langs->trans("Total").'</td><td class="right">';
-	$boxgraph .= $SommeA + $SommeB + $SommeC + $SommeD + $SommeE;
+	$boxgraph .= $SumToValidate + $SumNoSubscritpion + $SumOutOfDate + $SumUpToDate + $SumResiliated;
 	$boxgraph .= '</td></tr>';
 	$boxgraph .= '</table>';
 	$boxgraph .= '</div>';
@@ -510,7 +510,7 @@ foreach ($AdherentType as $key => $adhtype) {
 	print '<tr class="oddeven">';
 	print '<td>'.$adhtype->getNomUrl(1, dol_size(32)).'</td>';
 	print '<td class="right">'.(isset($MembersToValidate[$key]) && $MembersToValidate[$key] > 0 ? $MembersToValidate[$key] : '').' '.$staticmember->LibStatut(-1, $adhtype->subscription, 0, 3).'</td>';
-	print '<td class="right">'.(isset($MembersWhithoutSubscription[$key]) && $MembersWhithoutSubscription[$key] > 0 ? $MembersWhithoutSubscription[$key] : '').' '.$staticmember->LibStatut(1, $adhtype->subscription, 0, 3).'</td>';
+	print '<td class="right">'.(isset($MembersNoSubscription[$key]) && $MembersNoSubscription[$key] > 0 ? $MembersNoSubscription[$key] : '').' '.$staticmember->LibStatut(1, $adhtype->subscription, 0, 3).'</td>';
 	print '<td class="right">'.(isset($MembersValidated[$key]) && ($MembersValidated[$key] - (isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0) > 0) ? $MembersValidated[$key] - (isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0) : '').' '.$staticmember->LibStatut(1, $adhtype->subscription, 1, 3).'</td>';
 	print '<td class="right">'.(isset($MembersUpToDate[$key]) && $MembersUpToDate[$key] > 0 ? $MembersUpToDate[$key] : '').' '.$staticmember->LibStatut(1, $adhtype->subscription, $now, 3).'</td>';
 	print '<td class="right">'.(isset($MembersResiliated[$key]) && $MembersResiliated[$key] > 0 ? $MembersResiliated[$key] : '').' '.$staticmember->LibStatut(0, $adhtype->subscription, 0, 3).'</td>';
@@ -518,11 +518,11 @@ foreach ($AdherentType as $key => $adhtype) {
 }
 print '<tr class="liste_total">';
 print '<td class="liste_total">'.$langs->trans("Total").'</td>';
-print '<td class="liste_total right">'.$SommeA.' '.$staticmember->LibStatut(-1, $adhtype->subscription, 0, 3).'</td>';
-print '<td class="liste_total right">'.$SommeB.' '.$staticmember->LibStatut(1, $adhtype->subscription, 0, 3).'</td>';
-print '<td class="liste_total right">'.$SommeC.' '.$staticmember->LibStatut(1, $adhtype->subscription, 1, 3).'</td>';
-print '<td class="liste_total right">'.$SommeD.' '.$staticmember->LibStatut(1, $adhtype->subscription, $now, 3).'</td>';
-print '<td class="liste_total right">'.$SommeE.' '.$staticmember->LibStatut(0, $adhtype->subscription, 0, 3).'</td>';
+print '<td class="liste_total right">'.$SumToValidate.' '.$staticmember->LibStatut(-1, $adhtype->subscription, 0, 3).'</td>';
+print '<td class="liste_total right">'.$SumNoSubscription.' '.$staticmember->LibStatut(1, $adhtype->subscription, 0, 3).'</td>';
+print '<td class="liste_total right">'.$SumOutOfDate.' '.$staticmember->LibStatut(1, $adhtype->subscription, 1, 3).'</td>';
+print '<td class="liste_total right">'.$SumUpToDate.' '.$staticmember->LibStatut(1, $adhtype->subscription, $now, 3).'</td>';
+print '<td class="liste_total right">'.$SumResiliated.' '.$staticmember->LibStatut(0, $adhtype->subscription, 0, 3).'</td>';
 print '</tr>';
 
 print "</table>\n";
