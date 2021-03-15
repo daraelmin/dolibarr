@@ -511,7 +511,7 @@ foreach ($AdherentType as $key => $adhtype) {
 	print '<td>'.$adhtype->getNomUrl(1, dol_size(32)).'</td>';
 	print '<td class="right">'.(isset($MembersToValidate[$key]) && $MembersToValidate[$key] > 0 ? $MembersToValidate[$key] : '').' '.$staticmember->LibStatut(-1, $adhtype->subscription, 0, 3).'</td>';
 	print '<td class="right">'.(isset($MembersWhithoutSubscription[$key]) && $MembersWhithoutSubscription[$key] > 0 ? $MembersWhithoutSubscription[$key] : '').' '.$staticmember->LibStatut(1, $adhtype->subscription, 0, 3).'</td>';
-	print '<td class="right">'.(isset($MembersValidated[$key]) && ($MembersValidated[$key] - (isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0) > 0) ? $MembersValidated[$key] - (isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0) : '').' '.$staticmember->LibStatut(1, 1, 0, 3).'</td>';
+	print '<td class="right">'.(isset($MembersValidated[$key]) && ($MembersValidated[$key] - (isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0) > 0) ? $MembersValidated[$key] - (isset($MembersUpToDate[$key]) ? $MembersUpToDate[$key] : 0) : '').' '.$staticmember->LibStatut(1, $adhtype->subscription, 1, 3).'</td>';
 	print '<td class="right">'.(isset($MembersUpToDate[$key]) && $MembersUpToDate[$key] > 0 ? $MembersUpToDate[$key] : '').' '.$staticmember->LibStatut(1, $adhtype->subscription, $now, 3).'</td>';
 	print '<td class="right">'.(isset($MembersResiliated[$key]) && $MembersResiliated[$key] > 0 ? $MembersResiliated[$key] : '').' '.$staticmember->LibStatut(0, $adhtype->subscription, 0, 3).'</td>';
 	print "</tr>\n";
