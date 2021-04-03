@@ -691,6 +691,7 @@ if ($action == 'create')
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="add">';
 
+// Background color
 	$htmltext = '<i>'.$langs->trans("FollowingConstantsWillBeSubstituted").':<br>';
 	foreach ($object->substitutionarray as $key => $val)
 	{
@@ -709,9 +710,48 @@ if ($action == 'create')
 	print dol_get_fiche_head();
 
 	print '<table class="border centpercent">';
+
+	// Subject
 	print '<tr><td class="fieldrequired titlefieldcreate">'.$langs->trans("MailTitle").'</td><td><input class="flat minwidth300" name="title" value="'.dol_escape_htmltag(GETPOST('title')).'" autofocus="autofocus"></td></tr>';
+
+	// From
 	print '<tr><td class="fieldrequired">'.$langs->trans("MailFrom").'</td><td><input class="flat minwidth200" name="from" value="'.$conf->global->MAILING_EMAIL_FROM.'"></td></tr>';
+
+	// Errors To
 	print '<tr><td>'.$langs->trans("MailErrorsTo").'</td><td><input class="flat minwidth200" name="errorsto" value="'.(!empty($conf->global->MAILING_EMAIL_ERRORSTO) ? $conf->global->MAILING_EMAIL_ERRORSTO : $conf->global->MAIN_MAIL_ERRORS_TO).'"></td></tr>';
+
+	// Joined files
+	$addfileaction = 'addfile';
+	print '<tr><td>'.$langs->trans("MailFile").'</td>';
+	print '<td colspan="3">';
+	// List of files
+	$listofpaths = dol_dir_list($upload_dir, 'all', 0, '', '', 'name', SORT_ASC, 0);
+
+	// TODO Trick to have param removedfile containing nb of image to delete. But this does not works without javascript
+	$out .= '<input type="hidden" class="removedfilehidden" name="removedfile" value="">'."\n";
+	$out .= '<script type="text/javascript" language="javascript">';
+	$out .= 'jQuery(document).ready(function () {';
+	$out .= '    jQuery(".removedfile").click(function() {';
+	$out .= '        jQuery(".removedfilehidden").val(jQuery(this).val());';
+	$out .= '    });';
+	$out .= '})';
+	$out .= '</script>'."\n";
+	if (count($listofpaths)){
+		foreach ($listofpaths as $key => $val){
+			$out .= '<div id="attachfile_'.$key.'">';
+			$out .= img_mime($listofpaths[$key]['name']).' '.$listofpaths[$key]['name'];
+			$out .= ' <input type="image" style="border: 0px;" src="'.img_picto($langs->trans("Search"), 'delete.png', '', '', 1).'" value="'.($key + 1).'" class="removedfile" id="removedfile_'.$key.'" name="removedfile_'.$key.'" />';
+			$out .= '<br></div>';
+		}
+	} else {
+		$out .= $langs->trans("NoAttachedFiles").'<br>';
+	}
+	// Add link to add file
+	$out .= '<input type="file" class="flat" id="addedfile" name="addedfile" value="'.$langs->trans("Upload").'" />';
+	$out .= ' ';
+	$out .= '<input type="submit" class="button" id="'.$addfileaction.'" name="'.$addfileaction.'" value="'.$langs->trans("MailingAddFile").'" />';
+	print $out;
+	print '</td></tr>';
 
 	// Other attributes
 	$parameters = array();
@@ -1151,7 +1191,7 @@ if ($action == 'create')
 			print '<tr><td class="titlefield">'.$langs->trans("MailTitle").'</td><td colspan="3">'.$object->title.'</td></tr>';
 			// From
 			print '<tr><td class="titlefield">'.$langs->trans("MailFrom").'</td><td colspan="3">'.dol_print_email($object->email_from, 0, 0, 0, 0, 1).'</td></tr>';
-			// To
+			// Errors To
 			print '<tr><td>'.$langs->trans("MailErrorsTo").'</td><td colspan="3">'.dol_print_email($object->email_errorsto, 0, 0, 0, 0, 1).'</td></tr>';
 
 			// Number of distinct emails
