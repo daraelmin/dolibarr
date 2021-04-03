@@ -713,12 +713,25 @@ if ($action == 'create')
 
 	// Subject
 	print '<tr><td class="fieldrequired titlefieldcreate">'.$langs->trans("MailTitle").'</td><td><input class="flat minwidth300" name="title" value="'.dol_escape_htmltag(GETPOST('title')).'" autofocus="autofocus"></td></tr>';
-
 	// From
 	print '<tr><td class="fieldrequired">'.$langs->trans("MailFrom").'</td><td><input class="flat minwidth200" name="from" value="'.$conf->global->MAILING_EMAIL_FROM.'"></td></tr>';
-
 	// Errors To
 	print '<tr><td>'.$langs->trans("MailErrorsTo").'</td><td><input class="flat minwidth200" name="errorsto" value="'.(!empty($conf->global->MAILING_EMAIL_ERRORSTO) ? $conf->global->MAILING_EMAIL_ERRORSTO : $conf->global->MAIN_MAIL_ERRORS_TO).'"></td></tr>';
+
+	// Other attributes
+	$parameters = array();
+	$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	print $hookmanager->resPrint;
+	if (empty($reshook))
+	{
+		print $object->showOptionals($extrafields, 'edit');
+	}
+
+	print '</table>';
+	print '</br><br>';
+
+	print '<table class="border centpercent">';
+	print '<tr><td class="fieldrequired titlefieldcreate">'.$langs->trans("MailTopic").'</td><td><input class="flat minwidth200 quatrevingtpercent" name="sujet" value="'.dol_escape_htmltag(GETPOST('sujet', 'alphanohtml')).'"></td></tr>';
 
 	// Joined files
 	$addfileaction = 'addfile';
@@ -753,20 +766,7 @@ if ($action == 'create')
 	print $out;
 	print '</td></tr>';
 
-	// Other attributes
-	$parameters = array();
-	$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
-	if (empty($reshook))
-	{
-		print $object->showOptionals($extrafields, 'edit');
-	}
-
-	print '</table>';
-	print '</br><br>';
-
-	print '<table class="border centpercent">';
-	print '<tr><td class="fieldrequired titlefieldcreate">'.$langs->trans("MailTopic").'</td><td><input class="flat minwidth200 quatrevingtpercent" name="sujet" value="'.dol_escape_htmltag(GETPOST('sujet', 'alphanohtml')).'"></td></tr>';
+	// Background color
 	print '<tr><td>'.$langs->trans("BackgroundColorByDefault").'</td><td colspan="3">';
 	print $htmlother->selectColor($_POST['bgcolor'], 'bgcolor', '', 0);
 	print '</td></tr>';
@@ -1141,6 +1141,13 @@ if ($action == 'create')
 			}
 			print '</td></tr>';
 
+			// Other attributes
+		$parameters = array();
+		$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		print $hookmanager->resPrint;
+		if (empty($reshook)){
+			print $object->showOptionals($extrafields, 'edit');
+		}
 			// Background color
 			/*print '<tr><td width="15%">'.$langs->trans("BackgroundColorByDefault").'</td><td colspan="3">';
             print $htmlother->selectColor($object->bgcolor,'bgcolor','',0);
