@@ -459,8 +459,6 @@ if (empty($reshook)) {
 
 	// Action add emailing
 	if ($action == 'add' && !GETPOST('addfile')) {
-	    echo '<pre>'; var_dump($action); echo '</pre>';
-	    echo '<pre>'; var_dump(GETPOST('addfile')); echo '</pre>'; 
 		$mesgs = array();
 
 		$object->email_from     = (string) GETPOST("from", "none"); // Must allow 'name <email>'
@@ -535,7 +533,7 @@ if (empty($reshook)) {
 		// Set tmp user directory
 		dol_add_file_process($upload_dir, 0, 0, 'addedfile', '', null, '', 0);
 
-		$action = "edit";
+		$action = $action == 'add' ? 'create' : "edit";
 	}
 
 	// Action of file remove
@@ -546,7 +544,7 @@ if (empty($reshook)) {
 
 		dol_remove_file_process(GETPOST('removedfile'), 0, 0); // We really delete file linked to mailing
 
-		$action = "edit";
+		$action = $action == 'add' ? 'create' : "edit";
 	}
 
 	// Action of emailing update
