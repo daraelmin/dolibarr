@@ -548,7 +548,7 @@ if (empty($reshook)) {
 	}
 
 	// Action of emailing update
-	if ($action == 'update' && !GETPOST("removedfile") && !$cancel) {
+	if (($action == 'update' || GETPOST('addfile')) && !GETPOST("removedfile") && !$cancel) {
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$isupload = 0;
