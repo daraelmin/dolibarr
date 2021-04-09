@@ -716,7 +716,10 @@ if ($action == 'create') {
 
 	print '<table class="border centpercent">';
 	print '<tr><td class="fieldrequired titlefieldcreate">'.$langs->trans("MailTopic").'</td><td><input class="flat minwidth200 quatrevingtpercent" name="sujet" value="'.dol_escape_htmltag(GETPOST('sujet', 'alphanohtml')).'"></td></tr>';
-	
+
+	$trackid = ''; // TODO To avoid conflicts with 2 mass emailing, we should set a trackid here, even if we use another one into email header.
+	dol_init_file_process($upload_dir, $trackid);
+
 	// Joined files
 	$addfileaction = 'addfile';
 	print '<tr><td>'.$langs->trans("MailFile").'</td>';
