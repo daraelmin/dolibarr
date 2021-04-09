@@ -45,7 +45,6 @@ $action = GETPOST('action', 'aZ09');
 $cancel = GETPOST('cancel');
 $confirm = GETPOST('confirm', 'alpha');
 $urlfrom = GETPOST('urlfrom');
-
 $object = new Mailing($db);
 $result = $object->fetch($id);
 
@@ -459,7 +458,9 @@ if (empty($reshook)) {
 	}
 
 	// Action add emailing
-	if ($action == 'add') {
+	if ($action == 'add' && !GETPOST('addfile')) {
+	    echo '<pre>'; var_dump($action); echo '</pre>';
+	    echo '<pre>'; var_dump(GETPOST('addfile')); echo '</pre>'; 
 		$mesgs = array();
 
 		$object->email_from     = (string) GETPOST("from", "none"); // Must allow 'name <email>'
@@ -697,8 +698,11 @@ if ($action == 'create') {
 	print dol_get_fiche_head();
 
 	print '<table class="border centpercent">';
+	// Subject
 	print '<tr><td class="fieldrequired titlefieldcreate">'.$langs->trans("MailTitle").'</td><td><input class="flat minwidth300" name="title" value="'.dol_escape_htmltag(GETPOST('title')).'" autofocus="autofocus"></td></tr>';
+	// From
 	print '<tr><td class="fieldrequired">'.$langs->trans("MailFrom").'</td><td><input class="flat minwidth200" name="from" value="'.$conf->global->MAILING_EMAIL_FROM.'"></td></tr>';
+	// Errors To
 	print '<tr><td>'.$langs->trans("MailErrorsTo").'</td><td><input class="flat minwidth200" name="errorsto" value="'.(!empty($conf->global->MAILING_EMAIL_ERRORSTO) ? $conf->global->MAILING_EMAIL_ERRORSTO : $conf->global->MAIN_MAIL_ERRORS_TO).'"></td></tr>';
 
 	// Other attributes
@@ -714,6 +718,41 @@ if ($action == 'create') {
 
 	print '<table class="border centpercent">';
 	print '<tr><td class="fieldrequired titlefieldcreate">'.$langs->trans("MailTopic").'</td><td><input class="flat minwidth200 quatrevingtpercent" name="sujet" value="'.dol_escape_htmltag(GETPOST('sujet', 'alphanohtml')).'"></td></tr>';
+	
+	// Joined files
+	$addfileaction = 'addfile';
+	print '<tr><td>'.$langs->trans("MailFile").'</td>';
+	print '<td colspan="3">';
+	// List of files
+	$listofpaths = dol_dir_list($upload_dir, 'all', 0, '', '', 'name', SORT_ASC, 0);
+	
+	// TODO Trick to have param removedfile containing nb of image to delete. But this does not works without javascript
+	$out .= '<input type="hidden" class="removedfilehidden" name="removedfile" value="">'."\n";
+	$out .= '<script type="text/javascript" language="javascript">';
+	$out .= 'jQuery(document).ready(function () {';
+	$out .= '    jQuery(".removedfile").click(function() {';
+	$out .= '        jQuery(".removedfilehidden").val(jQuery(this).val());';
+	$out .= '    });';
+	$out .= '})';
+	$out .= '</script>'."\n";
+	if (count($listofpaths)){
+	    foreach ($listofpaths as $key => $val){
+	        $out .= '<div id="attachfile_'.$key.'">';
+	        $out .= img_mime($listofpaths[$key]['name']).' '.$listofpaths[$key]['name'];
+	        $out .= ' <input type="image" style="border: 0px;" src="'.img_picto($langs->trans("Search"), 'delete.png', '', '', 1).'" value="'.($key + 1).'" class="removedfile" id="removedfile_'.$key.'" name="removedfile_'.$key.'" />';
+	        $out .= '<br></div>';
+	    }
+	} else {
+	    $out .= $langs->trans("NoAttachedFiles").'<br>';
+	}
+	// Add link to add file
+	$out .= '<input type="file" class="flat" id="addedfile" name="addedfile" value="'.$langs->trans("Upload").'" />';
+	$out .= ' ';
+	$out .= '<input type="submit" class="button" id="'.$addfileaction.'" name="'.$addfileaction.'" value="'.$langs->trans("MailingAddFile").'" />';
+	print $out;
+	print '</td></tr>';
+	
+	// Background color
 	print '<tr><td>'.$langs->trans("BackgroundColorByDefault").'</td><td colspan="3">';
 	print $htmlother->selectColor($_POST['bgcolor'], 'bgcolor', '', 0);
 	print '</td></tr>';
@@ -1069,7 +1108,15 @@ if ($action == 'create') {
 				print '<span class="opacitymedium">'.$langs->trans("NoAttachedFiles").'</span><br>';
 			}
 			print '</td></tr>';
-
+			
+			// Other attributes
+			$parameters = array();
+			$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			print $hookmanager->resPrint;
+			if (empty($reshook)){
+			    print $object->showOptionals($extrafields, 'edit');
+			}
+			
 			// Background color
 			/*print '<tr><td width="15%">'.$langs->trans("BackgroundColorByDefault").'</td><td colspan="3">';
 			print $htmlother->selectColor($object->bgcolor,'bgcolor','',0);
@@ -1123,7 +1170,7 @@ if ($action == 'create') {
 			print '<tr><td class="titlefield">'.$langs->trans("MailTitle").'</td><td colspan="3">'.$object->title.'</td></tr>';
 			// From
 			print '<tr><td class="titlefield">'.$langs->trans("MailFrom").'</td><td colspan="3">'.dol_print_email($object->email_from, 0, 0, 0, 0, 1).'</td></tr>';
-			// To
+			// Errors To
 			print '<tr><td>'.$langs->trans("MailErrorsTo").'</td><td colspan="3">'.dol_print_email($object->email_errorsto, 0, 0, 0, 0, 1).'</td></tr>';
 
 			// Number of distinct emails
@@ -1163,8 +1210,6 @@ if ($action == 'create') {
 			print '</div>';
 
 			print dol_get_fiche_end();
-
-
 
 			print "<br>\n";
 
