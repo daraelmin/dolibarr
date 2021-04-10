@@ -55,6 +55,7 @@ echo '<pre>'; var_dump($action);echo '</pre>';
 $action = ($action == 'add' && GETPOST('addfile')) ? 'update' : $action;
 echo '<pre>'; var_dump($action);echo '</pre>';
 echo '<pre>'; var_dump($id);echo '</pre>';
+echo '<pre>'; var_dump($object->id);echo '</pre>';
 $id = ($action == 'update' && !$id) ? -1 : $id;
 echo '<pre>'; var_dump($id);echo '</pre>'; 
 // fetch optionals attributes and labels
