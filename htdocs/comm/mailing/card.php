@@ -52,7 +52,8 @@ $extrafields = new ExtraFields($db);
 
 // when attaché file in new mail use update action
 $action = ($action == 'add' && GETPOST('addfile')) ? 'update' : $action;
-
+echo '<pre>'; var_dump($action);echo '</pre>';
+echo '<pre>'; var_dump($id);echo '</pre>'; 
 // fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
 
