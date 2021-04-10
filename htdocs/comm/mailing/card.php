@@ -50,6 +50,9 @@ $result = $object->fetch($id);
 
 $extrafields = new ExtraFields($db);
 
+// when attaché file in new mail use update action
+$action = ($action = 'add' && GETPOST('addfile')) ? $action = 'update' : $action;
+
 // fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
 
@@ -548,7 +551,7 @@ if (empty($reshook)) {
 	}
 
 	// Action of emailing update
-	if (($action == 'update' || ($action == 'add' && GETPOST('addfile'))) && !GETPOST("removedfile") && !$cancel) {
+	if (($action == 'update' || ($action = 'add' && GETPOST('addfile'))) && !GETPOST("removedfile") && !$cancel) {
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$isupload = 0;
