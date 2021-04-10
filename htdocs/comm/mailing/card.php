@@ -88,7 +88,7 @@ if ($reshook < 0) setEventMessages($hookmanager->error, $hookmanager->errors, 'e
 if (empty($reshook))
 {
 	// Action clone object
-	if ($ 'confirm_clone' && $confirm == 'yes')
+	if ($action == 'confirm_clone' && $confirm == 'yes')
 	{
 		if (!GETPOST("clone_content", 'alpha') && !GETPOST("clone_receivers", 'alpha'))
 		{
@@ -686,21 +686,48 @@ llxHeader('', $langs->trans("Mailing"), $help_url, '', 0, 0,
 
 if ($action == 'create')
 {
-	print load_fiche_titre($langs->trans("NewMailing"), $availablelink, 'object_email');
+    $htmltext = '<i>'.$langs->trans("FollowingConstantsWillBeSubstituted").':<br>';
+    foreach ($object->substitutionarray as $key => $val)
+    {
+        $htmltext .= $key.' = '.$langs->trans($val).'<br>';
+    }
+    $htmltext .= '</i>';
+    
+    $availablelink = $form->textwithpicto($langs->trans("AvailableVariables"), $htmltext, 1, 'help', '', 0, 2, 'availvar');
+    print load_fiche_titre($langs->trans("NewMailing"), $availablelink, 'object_email');
 	print dol_get_fiche_head();
-
-				// Create mail form object
-				include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
-				$formmail = new FormMail($db);
-				$formmail->withtoccc = $conf->global->MAIN_EMAIL_USECCC;
-				$formmail->withtopic = 0;
-				$formmail->withtopicreadonly = 1;
+	
+	print '<table class="tableforemailform boxtablenotop" width="100%">';
+	print '<tr><td class="fieldrequired maxwidth200 minwidth200">'.$langs->trans("MailTitle").'</td><td><input class="flat minwidth300" name="title" value="'.dol_escape_htmltag(GETPOST('title')).'" autofocus="autofocus"></td></tr>';
+	print '</table>';
+	
+	// Create mail form object
+	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+	$formmail = new FormMail($db);$formmail = new FormMail($db);
+	$formmail->topic = GETPOST('title') ? GETPOST('title') : '';
+	//$formmail->fromname = $conf->global->MAILING_EMAIL_FROM;
+	$formmail->frommail = $conf->global->MAILING_EMAIL_FROM;
+	$formmail->errorsto = (!empty($conf->global->MAILING_EMAIL_ERRORSTO) ? $conf->global->MAILING_EMAIL_ERRORSTO : $conf->global->MAIN_MAIL_ERRORS_TO);
+				
+				$formmail->withtopic = 1;
+				$formmail->withtopicreadonly = 0;
+				$formmail->witherrorsto = 1;
+				//$formmail->withsubstit = 1;
+				$formmail->withfrom = 1;
+				$formmail->withto = 0;
+				$formmail->withtocc = 0;
+				$formmail->withtoccc = 0;
 				$formmail->withfile = 2;
+				$formmail->withbody = 1;
 				$formmail->withcancel = 1;
+				$formmail->withdeliveryreceipt = 0;
+				// Table of substitutions
+				//$formmail->substit = 1;
+				// Table of post's complementary params
 				// Table of post's complementary params
 				$formmail->param["action"] = "create";
 				$formmail->param["models"] = 'none';
-				$formmail->param["returnurl"] = "card?id=".$object->id;
+				//$formmail->param["returnurl"] = "card?id=".$object->id;
 
 				print $formmail->get_form();
 
