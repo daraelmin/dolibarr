@@ -50,9 +50,12 @@ $result = $object->fetch($id);
 
 $extrafields = new ExtraFields($db);
 
-// when attaché file in new mail use update action
+// when attach file in new mail use update action
+echo '<pre>'; var_dump($action);echo '</pre>';
 $action = ($action == 'add' && GETPOST('addfile')) ? 'update' : $action;
 echo '<pre>'; var_dump($action);echo '</pre>';
+echo '<pre>'; var_dump($id);echo '</pre>';
+$id = ($action == 'update' && !$id) ? -1 : $id;
 echo '<pre>'; var_dump($id);echo '</pre>'; 
 // fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -537,7 +540,7 @@ if (empty($reshook)) {
 		// Set tmp user directory
 		dol_add_file_process($upload_dir, 0, 0, 'addedfile', '', null, '', 0);
 
-		$action = !$id ? 'create' : "edit";
+		$action = $id <= 0 ? 'create' : "edit";
 	}
 
 	// Action of file remove
@@ -548,7 +551,7 @@ if (empty($reshook)) {
 
 		dol_remove_file_process(GETPOST('removedfile'), 0, 0); // We really delete file linked to mailing
 
-		$action = !$id ? 'create' : "edit";
+		$action = $id <= 0 ? 'create' : "edit";
 	}
 
 	// Action of emailing update
@@ -582,7 +585,7 @@ if (empty($reshook)) {
 
 			setEventMessages($mesg, $mesgs, 'errors');
 		} 
-		$action = !$id ? 'create' : "edit";
+		$action = $id <= 0 ? 'create' : "edit";
 	}
 
 	// Action of validation confirmation
