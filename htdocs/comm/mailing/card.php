@@ -536,7 +536,7 @@ if (empty($reshook)) {
 		// Set tmp user directory
 		dol_add_file_process($upload_dir, 0, 0, 'addedfile', '', null, '', 0);
 
-		$action = $action == 'add' ? 'create' : "edit";
+		$action = $id ? 'create' : "edit";
 	}
 
 	// Action of file remove
@@ -547,7 +547,7 @@ if (empty($reshook)) {
 
 		dol_remove_file_process(GETPOST('removedfile'), 0, 0); // We really delete file linked to mailing
 
-		$action = $action == 'add' ? 'create' : "edit";
+		$action = $id ? 'create' : "edit";
 	}
 
 	// Action of emailing update
@@ -581,7 +581,7 @@ if (empty($reshook)) {
 
 			setEventMessages($mesg, $mesgs, 'errors');
 		} 
-		$action = $action == 'add' ? 'create' : "edit";
+		$action = $id ? 'create' : "edit";
 	}
 
 	// Action of validation confirmation
