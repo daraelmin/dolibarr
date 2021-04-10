@@ -461,7 +461,7 @@ if (empty($reshook)) {
 	}
 
 	// Action add emailing
-	if ($action == 'add' && !GETPOST('addfile')) {
+	if ($action == 'add') {
 		$mesgs = array();
 
 		$object->email_from     = (string) GETPOST("from", "none"); // Must allow 'name <email>'
@@ -551,7 +551,7 @@ if (empty($reshook)) {
 	}
 
 	// Action of emailing update
-	if (($action == 'update' || ($action = 'add' && GETPOST('addfile'))) && !GETPOST("removedfile") && !$cancel) {
+	if ($action == 'update' && !GETPOST("removedfile") && !$cancel) {
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$isupload = 0;
