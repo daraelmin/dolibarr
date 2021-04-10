@@ -1112,14 +1112,6 @@ if ($action == 'create') {
 			}
 			print '</td></tr>';
 			
-			// Other attributes
-			$parameters = array();
-			$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			print $hookmanager->resPrint;
-			if (empty($reshook)){
-			    print $object->showOptionals($extrafields, 'edit');
-			}
-			
 			// Background color
 			/*print '<tr><td width="15%">'.$langs->trans("BackgroundColorByDefault").'</td><td colspan="3">';
 			print $htmlother->selectColor($object->bgcolor,'bgcolor','',0);
