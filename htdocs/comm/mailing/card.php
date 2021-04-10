@@ -88,7 +88,7 @@ if ($reshook < 0) setEventMessages($hookmanager->error, $hookmanager->errors, 'e
 if (empty($reshook))
 {
 	// Action clone object
-	if ($action == 'confirm_clone' && $confirm == 'yes')
+	if ($ 'confirm_clone' && $confirm == 'yes')
 	{
 		if (!GETPOST("clone_content", 'alpha') && !GETPOST("clone_receivers", 'alpha'))
 		{
@@ -685,6 +685,32 @@ llxHeader('', $langs->trans("Mailing"), $help_url, '', 0, 0,
 	), array());
 
 if ($action == 'create')
+{
+	print load_fiche_titre($langs->trans("NewMailing"), $availablelink, 'object_email');
+	print dol_get_fiche_head();
+
+				// Create mail form object
+				include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+				$formmail = new FormMail($db);
+				$formmail->withtoccc = $conf->global->MAIN_EMAIL_USECCC;
+				$formmail->withtopic = 0;
+				$formmail->withtopicreadonly = 1;
+				$formmail->withfile = 2;
+				$formmail->withcancel = 1;
+				// Table of post's complementary params
+				$formmail->param["action"] = "create";
+				$formmail->param["models"] = 'none';
+				$formmail->param["returnurl"] = "card?id=".$object->id;
+
+				print $formmail->get_form();
+
+				print '<br>';
+
+				print dol_get_fiche_end();
+
+				print dol_set_focus('#sendto');
+			}
+if(false)
 {
 	// EMailing in creation mode
 	print '<form name="new_mailing" action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n";
