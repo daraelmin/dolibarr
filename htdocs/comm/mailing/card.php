@@ -578,7 +578,7 @@ if (empty($reshook)) {
 
 			setEventMessages($mesg, $mesgs, 'errors');
 		} 
-		action = $action == 'add' ? 'create' : "edit";
+		$action = $action == 'add' ? 'create' : "edit";
 	}
 
 	// Action of validation confirmation
