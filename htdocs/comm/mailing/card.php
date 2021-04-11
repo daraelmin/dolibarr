@@ -712,7 +712,7 @@ if ($action == 'create')
 				$formmail->withtopic = 1;
 				$formmail->withtopicreadonly = 0;
 				$formmail->witherrorsto = 1;
-				//$formmail->withsubstit = 1;
+				$formmail->withsubstit = 1;
 				$formmail->withfrom = 1;
 				$formmail->withto = 0;
 				$formmail->withtocc = 0;
@@ -721,9 +721,10 @@ if ($action == 'create')
 				$formmail->withbody = 1;
 				$formmail->withcancel = 1;
 				$formmail->withdeliveryreceipt = 0;
+
 				// Table of substitutions
-				//$formmail->substit = 1;
-				// Table of post's complementary params
+				$formmail->substit = $object->substitutionarray;
+
 				// Table of post's complementary params
 				$formmail->param["action"] = "create";
 				$formmail->param["models"] = 'none';
