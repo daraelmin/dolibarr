@@ -545,6 +545,21 @@ class FormMail extends Form
 				$out .= "</td></tr>\n";
 				//$out.='</div>';
 			}
+			
+			// Title (needed in mailing)
+			if (!empty($this->withtitle))
+			{
+			    if (!empty($this->withtitlereadonly))
+			    {
+			        $out .= '<tr><td class="fieldrequired width200">'.$langs->trans("MailTitle").'</td><td>';
+			        $out .= $langs->trans("MailTitle").'<input class="flat minwidth600" name="mailtitle" value="'.dol_escape_htmltag($this->mailtitle).'" /">';
+			        $out .= '</td></tr>\n';
+			    }
+			}else {
+			    $out .= '<tr><td class="fieldrequired width200">'.$langs->trans("MailTitle").'</td><td>';
+			    $out .= '<input type="text" id="mailtitle" name="mailtitle" class="maxwidth200onsmartphone" value="'.dol_escape_htmltag(GETPOST('mailtitle')).'" />';
+			    $out .= "</td></tr>\n";
+			}
 
 			// From
 			if (!empty($this->withfrom)) {

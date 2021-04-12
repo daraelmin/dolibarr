@@ -675,6 +675,60 @@ llxHeader(
 );
 
 if ($action == 'create') {
+    $htmltext = '<i>'.$langs->trans("FollowingConstantsWillBeSubstituted").':<br>';
+    foreach ($object->substitutionarray as $key => $val)
+    {
+        $htmltext .= $key.' = '.$langs->trans($val).'<br>';
+    }
+    $htmltext .= '</i>';
+    
+    $availablelink = $form->textwithpicto($langs->trans("AvailableVariables"), $htmltext, 1, 'help', '', 0, 2, 'availvar');
+    print load_fiche_titre($langs->trans("NewMailing"), $availablelink, 'object_email');
+	print dol_get_fiche_head();
+	
+	/*print '<table class="tableforemailform boxtablenotop" width="100%">';
+	print '<tr><td class="fieldrequired maxwidth200 minwidth200">'.$langs->trans("MailTitle").'</td><td><input class="flat minwidth300" name="title" value="'.dol_escape_htmltag(GETPOST('title')).'" autofocus="autofocus"></td></tr>';
+	print '</table>';*/
+	
+	// Create mail form object
+	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
+	$formmail = new FormMail($db);$formmail = new FormMail($db);
+	$formmail->topic = GETPOST('title') ? GETPOST('title') : '';
+	// formmail and forname from constant mailingemial
+	$mailingemailfrom = explode('<', $conf->global->MAILING_EMAIL_FROM);
+	$formmail->frommail = mb_substr(array_pop($mailingemailfrom),0,-1);
+	$formmail->fromname = implode('',$mailingemailfrom);
+	$formmail->errorsto = (!empty($conf->global->MAILING_EMAIL_ERRORSTO) ? $conf->global->MAILING_EMAIL_ERRORSTO : $conf->global->MAIN_MAIL_ERRORS_TO);
+	
+	$formmail->withtopic = 1;
+	$formmail->withtopicreadonly = 0;
+	$formmail->witherrorsto = 1;
+	// do not use withsubstit cause it shows substiton keys for test mailing
+	$formmail->withsubstit = 0;
+	$formmail->withfrom = 1;
+	// no to in create mode
+	$formmail->withto = 0;
+	$formmail->withtocc = 0;
+	$formmail->withtoccc = 0;
+	$formmail->withfile = 2;
+	$formmail->withbody = 1;
+	$formmail->withcancel = 1;
+	$formmail->withdeliveryreceipt = 0;
+	
+	// Table of post's complementary params
+	$formmail->param["action"] = "create";
+	$formmail->param["models"] = 'none';
+	$formmail->param["oneemailperrecipient"] = 'on';
+	
+	//$formmail->param["returnurl"] = "card?id=".$object->id;
+	
+	print $formmail->get_form();
+	print '<br>';
+	print dol_get_fiche_end();
+	//print dol_set_focus('#sendto');
+}
+
+if(false) {
 	// EMailing in creation mode
 	print '<form name="new_mailing" action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n";
 	print '<input type="hidden" name="token" value="'.newToken().'">';
