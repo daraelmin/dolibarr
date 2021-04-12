@@ -698,7 +698,7 @@ if ($action == 'create') {
 	$mailingemailfrom = explode('<', $conf->global->MAILING_EMAIL_FROM);
 	$formmail->frommail = mb_substr(array_pop($mailingemailfrom),0,-1);
 	$formmail->fromname = implode('',$mailingemailfrom);
-	$formmail->errorsto = (!empty($conf->global->MAILING_EMAIL_ERRORSTO) ? $conf->global->MAILING_EMAIL_ERRORSTO : $conf->global->MAIN_MAIL_ERRORS_TO);
+	$formmail->errorsto = $conf->global->MAILING_EMAIL_ERRORSTO;
 	
 	$formmail->withtopic = 1;
 	$formmail->withtopicreadonly = 0;

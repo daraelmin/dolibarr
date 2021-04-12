@@ -1168,8 +1168,9 @@ class FormMail extends Form
 	public function getHtmlForWithErrorsTo()
 	{
 		global $conf, $langs;
-		//if (! $this->errorstomail) $this->errorstomail=$this->frommail;
-		$errorstomail = (!empty($conf->global->MAIN_MAIL_ERRORS_TO) ? $conf->global->MAIN_MAIL_ERRORS_TO : $this->errorstomail);
+		
+		//if (! $this->errorsto) $this->errorsto=$this->frommail;
+		$errorstomail = $this->errorsto ? $this->errorsto : ($conf->global->MAIN_MAIL_ERRORS_TO ? $conf->global->MAIN_MAIL_ERRORS_TO : $conf->global->MAILING_EMAIL_ERRORSTO);
 		if ($this->witherrorstoreadonly) {
 			$out = '<tr><td>'.$langs->trans("MailErrorsTo").'</td><td>';
 			$out .= '<input type="hidden" id="errorstomail" name="errorstomail" value="'.$errorstomail.'" />';
