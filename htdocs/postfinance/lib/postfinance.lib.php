@@ -17,16 +17,16 @@
  */
 
 /**
- *	\file			htdocs/paybox/lib/paybox.lib.php
- *	\ingroup		paybox
- *  \brief			Library for common paybox functions
+ *	\file			htdocs/postfinance/lib/postfinance.lib.php
+ *	\ingroup		postfinance
+ *	\brief			Library for common postfinance functions
  */
 
 
 
 
 /**
- * Create a redirect form to paybox form
+ * Create a redirect form to postfinance form
  *
  * @param	int   	$PRICE		Price
  * @param   string	$CURRENCY	Currency
@@ -34,7 +34,7 @@
  * @param   string	$urlok		Url to go back if payment is OK
  * @param   string	$urlko		Url to go back if payment is KO
  * @param   string	$TAG		Full tag
- * @return  int              	1 if OK, -1 if ERROR
+ * @return  int 	1 if OK, -1 if ERROR
  */
 function print_paybox_redirect($PRICE, $CURRENCY, $EMAIL, $urlok, $urlko, $TAG)
 {
