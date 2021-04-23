@@ -18,19 +18,19 @@
  */
 
 /**
- * \file       htdocs/paybox/admin/paybox.php
- * \ingroup    paybox
- * \brief      Page to setup paybox module
+ * \file       htdocs/postfinance/admin/postfinance.php
+ * \ingroup    postfinance
+ * \brief      Page to setup postfinance module
  */
 
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
-$servicename = 'PayBox';
+$servicename = 'Postfinance Checkout';
 
 // Load translation files required by the page
-$langs->loadLangs(array('admin', 'other', 'paybox', 'paypal'));
+$langs->loadLangs(array('admin', 'other', 'postfinance', 'paypal'));
 
 if (!$user->admin) {
 	accessforbidden();
@@ -140,18 +140,18 @@ print load_fiche_titre($langs->trans("PayBoxSetup"), $linkback, 'title_setup');
 $h = 0;
 $head = array();
 
-$head[$h][0] = DOL_URL_ROOT."/paybox/admin/paybox.php";
-$head[$h][1] = $langs->trans("PayBox");
-$head[$h][2] = 'payboxaccount';
+$head[$h][0] = DOL_URL_ROOT."/postfinance/admin/postfinance.php";
+$head[$h][1] = $langs->trans("postfinance");
+$head[$h][2] = 'postfinanceaccount';
 $h++;
 
-print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
+print '<form method="POST" action="postfinance.php"].'">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="setvalue">';
 
-print dol_get_fiche_head($head, 'payboxaccount', '', -1);
+print dol_get_fiche_head($head, 'postfinanceaccount', '', -1);
 
-print $langs->trans("PayBoxDesc")."<br>\n";
+print $langs->trans("PostfinanceDesc")."<br>\n";
 print '<br>';
 
 print '<table class="noborder centpercent">';
