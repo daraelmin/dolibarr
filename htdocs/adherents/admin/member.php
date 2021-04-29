@@ -34,8 +34,6 @@
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
 
 // Load translation files required by the page
 $langs->loadLangs(array("admin", "members"));
@@ -218,16 +216,6 @@ print "</td></tr>\n";
 // Send mail information is on by default
 print '<tr class="oddeven"><td>'.$langs->trans("MemberSendInformationByMailByDefault").'</td><td>';
 print $form->selectyesno('ADHERENT_DEFAULT_SENDINFOBYMAIL', (!empty($conf->global->ADHERENT_DEFAULT_SENDINFOBYMAIL) ? $conf->global->ADHERENT_DEFAULT_SENDINFOBYMAIL : 0), 1);
-print "</td></tr>\n";
-
-// Amount by member type
-$amountbytype = array();
-print '<tr class="oddeven"><td>'.$langs->trans("DefineAmountMemberType").'</td><td>';
-foreach (AdherentType::amount_by_type(Adherent::STATUS_VALIDATED) as $typeid => $amount) {
-	print $type .' : ';
-	print '<input type="text" id="amountbytype['.$typeid.']" name="amountbytype['.$typeid.']" " size="5" value="'.(!empty($amount) ? $amount : '').'">';
-	print '<br>';
-}
 print "</td></tr>\n";
 
 // Insert subscription into bank account
