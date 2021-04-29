@@ -219,6 +219,16 @@ print '<tr class="oddeven"><td>'.$langs->trans("MemberSendInformationByMailByDef
 print $form->selectyesno('ADHERENT_DEFAULT_SENDINFOBYMAIL', (!empty($conf->global->ADHERENT_DEFAULT_SENDINFOBYMAIL) ? $conf->global->ADHERENT_DEFAULT_SENDINFOBYMAIL : 0), 1);
 print "</td></tr>\n";
 
+// Amount by member type
+$amountbytype = array();
+print '<tr class="oddeven"><td>'.$langs->trans("DefineAmountMemberType").'</td><td>';
+foreach (AdherentType::amount_by_type(Adherent::STATUS_VALIDATED) as $typeid => $amount) {
+	print $type .' : ';
+	print '<input type="text" id="amountbytype['.$typeid.']" name="amountbytype['.$typeid.']" " size="5" value="'.(!empty($amount) ? $amount : '').'">';
+	print '<br>';
+}
+print "</td></tr>\n";
+
 // Insert subscription into bank account
 print '<tr class="oddeven"><td>'.$langs->trans("MoreActionsOnSubscription").'</td>';
 $arraychoices = array('0'=>$langs->trans("None"));
