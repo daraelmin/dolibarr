@@ -3,8 +3,8 @@
  * Copyright (C) 2004-2008	Laurent Destailleur		<eldy@users.sourceforge.net>
  * Copyright (C) 2009-2017	Regis Houssin			<regis.houssin@inodbox.com>
  * Copyright (C) 2016		Charlie Benke			<charlie@patas-monkey.com>
- * Copyright (C) 2018-2019  Thibault Foucart		<support@ptibogxiv.net>
- * Copyright (C) 2021           Waël Almoman            <info@almoman.com>
+ * Copyright (C) 2018-2019	Thibault Foucart		<support@ptibogxiv.net>
+ * Copyright (C) 2021     	Waël Almoman            <info@almoman.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -88,6 +88,11 @@ class AdherentType extends CommonObject
 	 * @var int Subsription required (0 or 1)
 	 */
 	public $subscription;
+	
+	/**
+	 * @var float amount for subscription if required
+	 */
+	public $amount;
 
 	/** @var string 	Public note */
 	public $note;
@@ -361,6 +366,7 @@ class AdherentType extends CommonObject
 		$sql .= "libelle = '".$this->db->escape($this->label)."',";
 		$sql .= "morphy = '".$this->db->escape($this->morphy)."',";
 		$sql .= "subscription = '".$this->db->escape($this->subscription)."',";
+		$sql .= "amount = '".$this->db->escape($this->amount)."',";
 		$sql .= "duration = '".$this->db->escape($this->duration_value.$this->duration_unit)."',";
 		$sql .= "note = '".$this->db->escape($this->note)."',";
 		$sql .= "vote = ".(integer) $this->db->escape($this->vote).",";
