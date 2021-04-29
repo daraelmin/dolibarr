@@ -536,6 +536,44 @@ class AdherentType extends CommonObject
 	}
 
 	/**
+	 *  Return list of amount by type id
+	 *
+	 *  @param	int		$status			Filter on status of type
+	 *  @return array					List of types of members
+	 */
+	public function liste_array($status = null) {
+
+		global $conf, $langs;
+
+		$amountbytype = array();
+
+		$sql = "SELECT rowid, amount";
+		$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type";
+		$sql .= " WHERE entity IN (".getEntity('member_type').")";
+		if ($status !== null) {
+			$sql .= " AND statut = ".((int) $status);
+		}
+
+		$resql = $this->db->query($sql);
+		if ($resql) {
+			$nump = $this->db->num_rows($resql);
+
+			if ($nump) {
+				$i = 0;
+				while ($i < $nump) {
+					$obj = $this->db->fetch_object($resql);
+
+					$amountbytype[$obj->rowid] = $obj->amount;
+					$i++;
+				}
+			}
+		} else {
+			print $this->db->error();
+		}
+		return $amountbytype;
+	}
+
+	/**
 	 * 	Return array of Member objects for member type this->id (or all if this->id not defined)
 	 *
 	 * 	@param	string	$excludefilter		Filter to exclude
