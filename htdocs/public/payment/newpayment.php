@@ -1447,8 +1447,10 @@ if ($source == 'member' || $source == 'membersubscription') {
 	}
 
 	if (!empty($conf->global->MEMBER_SUBSCRIPTION_AMOUNT_BY_TYPE)) {
+		require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
+		$adht = new AdherentType($db);
 		// Amount by member type
-		$amountbytype = array();		// TODO Read the amount of subscription into table of types
+		$amountbytype = $adht->amount_by_type(1);
 		// Set the member type
 		$member->typeid = (int) (GETPOSTISSET("typeid") ? GETPOST("typeid", 'int') : $member->typeid);
 		// If we change the type of membership, we set also label of new type
@@ -1456,8 +1458,6 @@ if ($source == 'member' || $source == 'membersubscription') {
 		// Set amount for the subscription
 		$amount = (!empty($member->last_subscription_amount)) ? $member->last_subscription_amount : $amountbytype[$member->typeid];
 		// list member type
-		require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
-		$adht = new AdherentType($db);
 		if ( !$action) {
 			$form = new Form($db); // so we can call method selectarray
 			print '<tr class="CTableRow'.($var ? '1' : '2').'"><td class="CTableRow'.($var ? '1' : '2').'">'.$langs->trans("NewSubscription");
