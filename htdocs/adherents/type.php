@@ -70,6 +70,7 @@ $label = GETPOST("label", "alpha");
 $morphy = GETPOST("morphy", "alpha");
 $status = GETPOST("status", "int");
 $subscription = GETPOST("subscription", "int");
+$subscription = GETPOST("amount", "int");
 $duration_value = GETPOST('duration_value', 'int');
 $duration_unit = GETPOST('duration_unit', 'alpha');
 $vote = GETPOST("vote", "int");
@@ -114,14 +115,15 @@ if ($cancel) {
 
 if ($action == 'add' && $user->rights->adherent->configurer) {
 	$object->label = trim($label);
-	$object->morphy         = trim($morphy);
-	$object->status         = (int) $status;
-	$object->subscription   = (int) $subscription;
-	$object->duration_value     	 = $duration_value;
-	$object->duration_unit      	 = $duration_unit;
-	$object->note			= trim($comment);
+	$object->morphy = trim($morphy);
+	$object->status = (int) $status;
+	$object->subscription = (int) $subscription;
+	$object->amount = (float) $amount;
+	$object->duration_value = $duration_value;
+	$object->duration_unit = $duration_unit;
+	$object->note = trim($comment);
 	$object->mail_valid = trim($mail_valid);
-	$object->vote			= (int) $vote;
+	$object->vote = (int) $vote;
 
 	// Fill array 'array_options' with data from add form
 	$ret = $extrafields->setOptionalsFromPost(null, $object);
@@ -164,15 +166,16 @@ if ($action == 'update' && $user->rights->adherent->configurer) {
 
 	$object->oldcopy = clone $object;
 
-	$object->label			= trim($label);
-	$object->morphy = trim($morphy);
-	$object->status = (int) $status;
+	$object->label= trim($label);
+	$object->morphy	= trim($morphy);
+	$object->status	= (int) $status;
 	$object->subscription = (int) $subscription;
-	$object->duration_value     	 = $duration_value;
-	$object->duration_unit      	 = $duration_unit;
-	$object->note			= trim($comment);
+	$object->amount = (float) $amount;
+	$object->duration_value = $duration_value;
+	$object->duration_unit = $duration_unit;
+	$object->note = trim($comment);
 	$object->mail_valid = trim($mail_valid);
-	$object->vote			= (boolean) trim($vote);
+	$object->vote = (boolean) trim($vote);
 
 	// Fill array 'array_options' with data from add form
 	$ret = $extrafields->setOptionalsFromPost(null, $object);
@@ -268,6 +271,7 @@ if (!$rowid && $action != 'create' && $action != 'edit') {
 		print '<th>'.$langs->trans("Label").'</th>';
 		print '<th class="center">'.$langs->trans("MembersNature").'</th>';
 		print '<th class="center">'.$langs->trans("SubscriptionRequired").'</th>';
+		print '<th class="center">'.$langs->trans("Amount").'</th>';
 		print '<th class="center">'.$langs->trans("VoteAllowed").'</th>';
 		print '<th class="center">'.$langs->trans("Status").'</th>';
 		print '<th>&nbsp;</th>';
@@ -283,6 +287,7 @@ if (!$rowid && $action != 'create' && $action != 'edit') {
 			$membertype->label = $objp->rowid;
 			$membertype->status = $objp->status;
 			$membertype->subscription = $objp->subscription;
+			$membertype->amount = $objp->amount;
 
 			print '<tr class="oddeven">';
 			print '<td>';
@@ -355,7 +360,11 @@ if ($action == 'create') {
 	print "</td></tr>";
 
 	print '<tr><td>'.$langs->trans("SubscriptionRequired").'</td><td>';
-	print $form->selectyesno("subscription", 1, 1);
+	print $form->selectyesno("subscription", 1, 1, false, 0, 'onchange="document.getElementById(\'amount_tr\').style.display == \'block\' ? document.getElementById(\'amount_tr\').style.display = \'none\' : document.getElementById(\'amount_tr\').style.display = \'block\';"');
+	print '</td></tr>';
+
+	print '<tr id="amount_tr" style="display:none;"><td>'.$langs->trans("DefineAmountMemberType").'</td><td>';
+	print '<input type="text" id="amount" " size="5" value="'.(!empty($amount) ? $amount : '').'">';
 	print '</td></tr>';
 
 	print '<tr><td>'.$langs->trans("VoteAllowed").'</td><td>';
@@ -496,13 +505,13 @@ if ($rowid > 0) {
 		$sql = "SELECT d.rowid, d.login, d.firstname, d.lastname, d.societe as company,";
 		$sql .= " d.datefin,";
 		$sql .= " d.email, d.fk_adherent_type as type_id, d.morphy, d.statut as status,";
-		$sql .= " t.libelle as type, t.subscription";
+		$sql .= " t.libelle as type, t.subscription, t.amount";
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d, ".MAIN_DB_PREFIX."adherent_type as t";
 		$sql .= " WHERE d.fk_adherent_type = t.rowid ";
 		$sql .= " AND d.entity IN (".getEntity('adherent').")";
 		$sql .= " AND t.rowid = ".((int) $object->id);
 		if ($sall) {
-			$sql .= natural_search(array("f.firstname", "d.lastname", "d.societe", "d.email", "d.login", "d.address", "d.town", "d.note_public", "d.note_private"), $sall);
+			$sql .= natural_search(array("d.firstname", "d.lastname", "d.societe", "d.email", "d.login", "d.address", "d.town", "d.note_public", "d.note_private"), $sall);
 		}
 		if ($status != '') {
 			$sql .= natural_search('d.statut', $status, 2);
@@ -778,7 +787,11 @@ if ($rowid > 0) {
 		print "</td></tr>";
 
 		print '<tr><td>'.$langs->trans("SubscriptionRequired").'</td><td>';
-		print $form->selectyesno("subscription", $object->subscription, 1);
+		print $form->selectyesno("subscription", $object->subscription, 1, false, 0, 'onchange="document.getElementById(\'amount_tr\').style.display == \'block\' ? document.getElementById(\'amount_tr\').style.display = \'none\' : document.getElementById(\'amount_tr\').style.display = \'block\';"');
+		print '</td></tr>';
+		
+		print '<tr id="amount_tr" style="display:none;"><td>'.$langs->trans("DefineAmountMemberType").'</td><td>';
+		print '<input type="text" id="amount" " size="5" value="'.(!empty($amount) ? $amount : '').'">';
 		print '</td></tr>';
 
 		print '<tr><td>'.$langs->trans("VoteAllowed").'</td><td>';
