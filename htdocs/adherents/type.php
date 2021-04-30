@@ -445,6 +445,10 @@ if ($rowid > 0) {
 		print yn($object->subscription);
 		print '</tr>';
 
+		print '<tr><td class="titlefield">'.$langs->trans("Amount").'</td><td>';
+		print $object->amount;
+		print '</tr>';
+
 		print '<tr><td>'.$langs->trans("VoteAllowed").'</td><td>';
 		print yn($object->vote);
 		print '</tr>';
