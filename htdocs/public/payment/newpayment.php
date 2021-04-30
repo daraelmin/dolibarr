@@ -1454,8 +1454,8 @@ if ($source == 'member' || $source == 'membersubscription') {
 		// If we change the type of membership, we set also label of new type
 		$member->type = dol_getIdFromCode($db, $member->typeid, 'adherent_type', 'rowid', 'libelle');
 		// Set amount for the subscription
-		$amount = (!empty($member->last_subscription_amount)) ? $member->last_subscription_amount : $amountbytype[$member->typeid];
-		// list member type
+		$amount = !empty($amountbytype[$member->typeid]) ? $amountbytype[$member->typeid]  : $member->last_subscription_amount;
+		list member type
 		if ( !$action) {
 			$form = new Form($db); // so we can call method selectarray
 			print '<tr class="CTableRow'.($var ? '1' : '2').'"><td class="CTableRow'.($var ? '1' : '2').'">'.$langs->trans("NewSubscription");
