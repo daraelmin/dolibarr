@@ -442,3 +442,6 @@ UPDATE llx_const SET value = 'github' WHERE __DECRYPT('name')__ = 'MAIN_BUGTRACK
 
 ALTER TABLE llx_facture_fourn_det ADD COLUMN fk_remise_except integer DEFAULT NULL after remise_percent;
 ALTER TABLE llx_facture_fourn_det ADD UNIQUE INDEX uk_fk_remise_except (fk_remise_except, fk_facture_fourn);
+
+-- add default amount by member type
+ALTER TABLE `llx_subscription` ADD `amount` DOUBLE(24,8) NULL DEFAULT NULL AFTER `subscription`;
