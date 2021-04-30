@@ -360,10 +360,10 @@ if ($action == 'create') {
 	print "</td></tr>";
 
 	print '<tr><td>'.$langs->trans("SubscriptionRequired").'</td><td>';
-	print $form->selectyesno("subscription", 1, 1, false, 0, 'onchange="if (document.getElementById(\'amount_tr\').style.display == \'block\') {document.getElementById(\'amount_tr\').style.display = \'none\';} else {document.getElementById(\'amount_tr\').style.display = \'block\';}"');
+	print $form->selectyesno("subscription", 1, 1);
 	print '</td></tr>';
 
-	print '<tr id="amount_tr" style="display:block;"><td>'.$langs->trans("DefineAmountMemberType").'</td><td>';
+	print '<tr><td>'.$langs->trans("DefineAmountMemberType").'</td><td>';
 	print '<input type="text" id="amount" " size="5" value="'.(!empty($amount) ? $amount : '').'">';
 	print '</td></tr>';
 
@@ -787,10 +787,10 @@ if ($rowid > 0) {
 		print "</td></tr>";
 
 		print '<tr><td>'.$langs->trans("SubscriptionRequired").'</td><td>';
-		print $form->selectyesno("subscription", $object->subscription, 1, false, 0, 'onchange="document.getElementById(\'amount_tr\').style.display == \'block\' ? document.getElementById(\'amount_tr\').style.display = \'none\' : document.getElementById(\'amount_tr\').style.display = \'block\';"');
+		print $form->selectyesno("subscription", $object->subscription, 1);
 		print '</td></tr>';
 		
-		print '<tr id="amount_tr" style="display:none;"><td>'.$langs->trans("DefineAmountMemberType").'</td><td>';
+		print '<tr><td>'.$langs->trans("DefineAmountMemberType").'</td><td>';
 		print '<input type="text" id="amount" " size="5" value="'.(!empty($amount) ? $amount : '').'">';
 		print '</td></tr>';
 
