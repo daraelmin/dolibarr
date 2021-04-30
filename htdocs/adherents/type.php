@@ -71,7 +71,7 @@ $label = GETPOST("label", "alpha");
 $morphy = GETPOST("morphy", "alpha");
 $status = GETPOST("status", "int");
 $subscription = GETPOST("subscription", "int");
-$amount = GETPOST("amount", "int");
+$amount = price2num(GETPOST('amount', 'alpha'), 'MT');
 $duration_value = GETPOST('duration_value', 'int');
 $duration_unit = GETPOST('duration_unit', 'alpha');
 $vote = GETPOST("vote", "int");
@@ -119,7 +119,7 @@ if ($action == 'add' && $user->rights->adherent->configurer) {
 	$object->morphy = trim($morphy);
 	$object->status = (int) $status;
 	$object->subscription = (int) $subscription;
-	$object->amount = (float) $amount;
+	$object->amount = $amount;
 	$object->duration_value = $duration_value;
 	$object->duration_unit = $duration_unit;
 	$object->note = trim($comment);
@@ -171,7 +171,7 @@ if ($action == 'update' && $user->rights->adherent->configurer) {
 	$object->morphy	= trim($morphy);
 	$object->status	= (int) $status;
 	$object->subscription = (int) $subscription;
-	$object->amount = (float) $amount;
+	$object->amount = $amount;
 	$object->duration_value = $duration_value;
 	$object->duration_unit = $duration_unit;
 	$object->note = trim($comment);
@@ -306,7 +306,7 @@ if (!$rowid && $action != 'create' && $action != 'edit') {
 			}
 			print '</td>';
 			print '<td class="center">'.yn($objp->subscription).'</td>';
-			print '<td class="center">'.$objp->amount.'</td>';
+			print '<td class="center">'.price($objp->amount).'</td>';
 			print '<td class="center">'.yn($objp->vote).'</td>';
 			print '<td class="center">'.$membertype->getLibStatut(5).'</td>';
 			if ($user->rights->adherent->configurer) {
@@ -366,7 +366,7 @@ if ($action == 'create') {
 	print '</td></tr>';
 
 	print '<tr><td>'.$langs->trans("Amount").'</td><td>';
-	print '<input name="amount" size="5" value="'.(!empty($amount) ? $amount : '').'">';
+	print '<input name="amount" size="5" value="'.price($amount).'">';
 	print '</td></tr>';
 
 	print '<tr><td>'.$langs->trans("VoteAllowed").'</td><td>';
@@ -446,7 +446,7 @@ if ($rowid > 0) {
 		print '</tr>';
 
 		print '<tr><td class="titlefield">'.$langs->trans("Amount").'</td><td>';
-		print $object->amount;
+		print price($object->amount);
 		print '</tr>';
 
 		print '<tr><td>'.$langs->trans("VoteAllowed").'</td><td>';
@@ -797,7 +797,7 @@ if ($rowid > 0) {
 		print '</td></tr>';
 		
 		print '<tr><td>'.$langs->trans("DefineAmountMemberType").'</td><td>';
-		print '<input name="amount" size="5" value="'.$object->amount.'">';
+		print '<input name="amount" size="5" value="'.price($object->amount).'">';
 		print '</td></tr>';
 
 		print '<tr><td>'.$langs->trans("VoteAllowed").'</td><td>';
