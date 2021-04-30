@@ -1444,9 +1444,7 @@ if ($source == 'member' || $source == 'membersubscription') {
 		print '<tr class="CTableRow'.($var ? '1' : '2').'"><td class="CTableRow'.($var ? '1' : '2').'">'.$langs->trans("LastMemberType");
 		print '</td><td class="CTableRow'.($var ? '1' : '2').'">'.dol_escape_htmltag($member->type);
 		print "</td></tr>\n";
-	}
 
-	if (!empty($conf->global->MEMBER_SUBSCRIPTION_AMOUNT_BY_TYPE)) {
 		require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
 		$adht = new AdherentType($db);
 		// Amount by member type
