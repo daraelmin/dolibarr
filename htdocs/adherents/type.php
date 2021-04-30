@@ -119,7 +119,7 @@ if ($action == 'add' && $user->rights->adherent->configurer) {
 	$object->morphy = trim($morphy);
 	$object->status = (int) $status;
 	$object->subscription = (int) $subscription;
-	$object->amount = (float) $amount;
+	$object->amount = $amount;
 	$object->duration_value = $duration_value;
 	$object->duration_unit = $duration_unit;
 	$object->note = trim($comment);
@@ -171,7 +171,7 @@ if ($action == 'update' && $user->rights->adherent->configurer) {
 	$object->morphy	= trim($morphy);
 	$object->status	= (int) $status;
 	$object->subscription = (int) $subscription;
-	$object->amount = (float) $amount;
+	$object->amount = $amount;
 	$object->duration_value = $duration_value;
 	$object->duration_unit = $duration_unit;
 	$object->note = trim($comment);
