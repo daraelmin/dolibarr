@@ -364,7 +364,7 @@ if ($action == 'create') {
 	print '</td></tr>';
 
 	print '<tr><td>'.$langs->trans("DefineAmountMemberType").'</td><td>';
-	print '<input type="text" id="amount" " size="5" value="'.(!empty($amount) ? $amount : '').'">';
+	print '<input name="amount" size="5" value="'.(!empty($amount) ? $amount : '').'">';
 	print '</td></tr>';
 
 	print '<tr><td>'.$langs->trans("VoteAllowed").'</td><td>';
@@ -791,7 +791,7 @@ if ($rowid > 0) {
 		print '</td></tr>';
 		
 		print '<tr><td>'.$langs->trans("DefineAmountMemberType").'</td><td>';
-		print '<input type="text" id="amount" " size="5" value="'.(!empty($amount) ? $amount : '').'">';
+		print '<input name="amount" size="5" value="'.(!empty($amount) ? $amount : '').'">';
 		print '</td></tr>';
 
 		print '<tr><td>'.$langs->trans("VoteAllowed").'</td><td>';
