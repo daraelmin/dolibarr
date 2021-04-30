@@ -306,7 +306,7 @@ if (!$rowid && $action != 'create' && $action != 'edit') {
 			}
 			print '</td>';
 			print '<td class="center">'.yn($objp->subscription).'</td>';
-			print '<td class="center">'.$objp->amount).'</td>';
+			print '<td class="center">'.$objp->amount.'</td>';
 			print '<td class="center">'.yn($objp->vote).'</td>';
 			print '<td class="center">'.$membertype->getLibStatut(5).'</td>';
 			if ($user->rights->adherent->configurer) {
@@ -365,7 +365,7 @@ if ($action == 'create') {
 	print $form->selectyesno("subscription", 1, 1);
 	print '</td></tr>';
 
-	print '<tr><td>'.$langs->trans("DefineAmountMemberType").'</td><td>';
+	print '<tr><td>'.$langs->trans("Amount").'</td><td>';
 	print '<input name="amount" size="5" value="'.(!empty($amount) ? $amount : '').'">';
 	print '</td></tr>';
 
