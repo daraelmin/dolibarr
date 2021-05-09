@@ -1439,6 +1439,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 		}
 
 		$themeparam = '?lang='.$langs->defaultlang.'&amp;theme='.$conf->theme.(GETPOST('optioncss', 'aZ09') ? '&amp;optioncss='.GETPOST('optioncss', 'aZ09', 1) : '').'&amp;userid='.$user->id.'&amp;entity='.$conf->entity;
+		$themeparam .= (!empty($conf->global->THEME_DARKMODEENABLED) ? '&amp;darkmode='.$conf->global->THEME_DARKMODEENABLED : '');
 		$themeparam .= ($ext ? '&amp;'.$ext : '').'&amp;revision='.getDolGlobalInt("MAIN_IHM_PARAMS_REV");
 		if (!empty($_SESSION['dol_resetcache'])) {
 			$themeparam .= '&amp;dol_resetcache='.$_SESSION['dol_resetcache'];
