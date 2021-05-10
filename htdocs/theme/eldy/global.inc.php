@@ -21,15 +21,15 @@
 	--colorbacklinepairchecked: rgb(<?php print $colorbacklinepairchecked; ?>);
 	--colorbacklinebreak: rgb(<?php print $colorbacklinebreak; ?>);
 	--colorbackbody: rgb(<?php print $colorbackbody; ?>);
-	--colorbackmobilemenu: #f8f8f8;
+	--colorbackmobilemenu: rgb(<?php print $colorbackmobilemenu; ?>);
 	--colortexttitlenotab: rgb(<?php print $colortexttitlenotab; ?>);
 	--colortexttitlenotab2: rgb(<?php print $colortexttitlenotab2; ?>);
 	--colortexttitle: rgba(<?php print $colortexttitle; ?>, 0.9);
 	--colortexttitlelink: rgba(<?php print $colortexttitlelink; ?>, 0.9);
 	--colortext: rgb(<?php print $colortext; ?>);
 	--colortextlink: rgb(<?php print $colortextlink; ?>);
-	--colortextbackhmenu: #<?php echo $colortextbackhmenu; ?>;
-	--colortextbackvmenu: #<?php print $colortextbackvmenu; ?>;
+	--colortextbackhmenu: rgb(<?php echo $colortextbackhmenu; ?>);
+	--colortextbackvmenu: rgb(<?php print $colortextbackvmenu; ?>);
 	--listetotal: #888888;
 	--inputbackgroundcolor: #FFF;
 	--inputbordercolor: rgba(0,0,0,.2);
@@ -39,7 +39,7 @@
 	--colorboxstatsborder: #e0e0e0;
 	--dolgraphbg: rgba(255,255,255,0);
 	--fieldrequiredcolor: #400030;
-	--colortextbacktab: #<?php print $colortextbacktab; ?>;
+	--colortextbacktab: rgb(<?php print $colortextbacktab; ?>);
 	--colorboxiconbg: #eee;
 	--refidnocolor:#444;
 	--tableforfieldcolor:#666;
@@ -56,29 +56,7 @@ if (!empty($conf->global->THEME_DARKMODEENABLED)) {
 	if ($conf->global->THEME_DARKMODEENABLED != 2) {
 		print "@media (prefers-color-scheme: dark) {";
 	}
-	print ":root {
-	            --colorbackhmenu1: #1d1e20;
-	            --colorbackvmenu1: #2b2c2e;
-	            --colorbacktitle1: #2b2d2f;
-	            --colorbacktabcard1: #1d1e20;				/* Must be same than colorbackbody */
-	            --colorbacktabactive: rgb(220,220,220);
-	            --colorbacklineimpair1: #38393d;
-	            --colorbacklineimpair2: #2b2d2f;
-	            --colorbacklinepair1: #38393d;
-	            --colorbacklinepair2: #2b2d2f;
-	            --colorbacklinepairhover: #2b2d2f;
-	            --colorbacklinepairchecked: #0e5ccd;
-	            --colorbackbody: #1d1e20;
-				--colorbackmobilemenu: #080808;
-	            --tooltipbgcolor: #2b2d2f;
-	            --colortexttitlenotab: rgb(220,220,220);
-	            --colortexttitlenotab2: rgb(220,220,220);
-	            --colortexttitle: rgb(220,220,220);
-	            --colortext: rgb(220,220,220);
-	            --colortextlink: #4390dc;
-	            --colortextbackhmenu: rgb(220,220,220);
-	            --colortextbackvmenu: rgb(220,220,220);
-				--tooltipfontcolor : rgb(220,220,220);
+	print ":rootsy {
 	            --listetotal: rgb(245, 83, 158);
 	            --inputbackgroundcolor: #2b2d2f;
 	            --inputbordercolor: rgb(220,220,220);

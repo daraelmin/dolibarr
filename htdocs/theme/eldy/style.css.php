@@ -151,10 +151,10 @@ if (!isset($conf->global->THEME_ELDY_TEXTLINK)) {
 }
 
 // Case of option editable only if option THEME_ELDY_ENABLE_PERSONALIZED is on
-if (empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED)) {
-	$conf->global->THEME_ELDY_BACKTABCARD1 = '255,255,255'; // card
-	$conf->global->THEME_ELDY_BACKTABACTIVE = '234,234,234';
-	$conf->global->THEME_ELDY_TEXT = '0,0,0';
+if (!empty($conf->global->THEME_ELDY_ENABLE_PERSONALIZED)) {
+    $conf->global->THEME_ELDY_BACKTABCARD1 = (!empty($conf->global->THEME_DARKMODEENABLED) ? '29,30,32' : '255,255,255'); // card
+    $conf->global->THEME_ELDY_BACKTABACTIVE = (!empty($conf->global->THEME_DARKMODEENABLED) ? '220,220,220' : '234,234,234');
+    $conf->global->THEME_ELDY_TEXT = (!empty($conf->global->THEME_DARKMODEENABLED) ? '220,220,220' : '0,0,0');
 	$conf->global->THEME_ELDY_FONT_SIZE1 = $fontsize;
 	$conf->global->THEME_ELDY_FONT_SIZE2 = '0.75em';
 }
@@ -194,18 +194,18 @@ $colorbackhmenu1 = join(',', colorStringToArray($colorbackhmenu1)); // Normalize
 $tmppart = explode(',', $colorbackhmenu1);
 $tmpval = (!empty($tmppart[0]) ? $tmppart[0] : 0) + (!empty($tmppart[1]) ? $tmppart[1] : 0) + (!empty($tmppart[2]) ? $tmppart[2] : 0);
 if ($tmpval <= 460) {
-	$colortextbackhmenu = 'FFFFFF';
+	$colortextbackhmenu = '220,220,220';
 } else {
-	$colortextbackhmenu = '000000';
+	$colortextbackhmenu = '0,0,0';
 }
 
 $colorbackvmenu1 = join(',', colorStringToArray($colorbackvmenu1)); // Normalize value to 'x,y,z'
 $tmppart = explode(',', $colorbackvmenu1);
 $tmpval = (!empty($tmppart[0]) ? $tmppart[0] : 0) + (!empty($tmppart[1]) ? $tmppart[1] : 0) + (!empty($tmppart[2]) ? $tmppart[2] : 0);
 if ($tmpval <= 460) {
-	$colortextbackvmenu = 'FFFFFF';
+	$colortextbackvmenu = '220,220,220';
 } else {
-	$colortextbackvmenu = '000000';
+	$colortextbackvmenu = '0,0,0';
 }
 
 $colorbacktitle1 = join(',', colorStringToArray($colorbacktitle1)); // Normalize value to 'x,y,z'
@@ -225,9 +225,9 @@ $colorbacktabcard1 = join(',', colorStringToArray($colorbacktabcard1)); // Norma
 $tmppart = explode(',', $colorbacktabcard1);
 $tmpval = (!empty($tmppart[0]) ? $tmppart[0] : 0) + (!empty($tmppart[1]) ? $tmppart[1] : 0) + (!empty($tmppart[2]) ? $tmppart[2] : 0);
 if ($tmpval <= 460) {
-	$colortextbacktab = 'FFFFFF';
+	$colortextbacktab = '220,220,220';
 } else {
-	$colortextbacktab = '000000';
+	$colortextbacktab = '0,0,0';
 }
 
 
@@ -285,6 +285,7 @@ print 'colorbackbody='.$colorbackbody."\n";
 print 'colorbackvmenu1='.$colorbackvmenu1."\n";
 print 'colorbackhmenu1='.$colorbackhmenu1."\n";
 print 'colorbacktitle1='.$colorbacktitle1."\n";
+print 'colorbacktabcard1='.$colorbacktabcard1."\n";
 print 'colorbacklineimpair1='.$colorbacklineimpair1."\n";
 print 'colorbacklineimpair2='.$colorbacklineimpair2."\n";
 print 'colorbacklinepair1='.$colorbacklinepair1."\n";

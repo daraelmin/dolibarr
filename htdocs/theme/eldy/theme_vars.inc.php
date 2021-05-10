@@ -62,6 +62,7 @@ $colorbacklinepairhover = '230,237,244'; // line hover
 $colorbacklinepairchecked = '230,237,244'; // line checked
 $colorbacklinebreak = '248,247,244'; // line break
 $colorbackbody = '255,255,255';
+$colorbackmobilemenu = '248,248,248';
 $colortexttitlenotab = '35,135,140'; // 150,90,121 140,80,10 or 10,140,80  #875a7b  green=0,123,140, violet: 0,50,120
 $colortexttitlenotab2 = '100,0,100'; // 150,90,121 140,80,10 or 10,140,80  #875a7b  green=0,123,140, violet: 0,50,120
 $colortexttitle = '40, 40, 60';
@@ -122,3 +123,29 @@ $colorblind_deuteranopes_badgeStatus4 = $colorblind_deuteranopes_badgeStatus7 = 
 $colorblind_deuteranopes_badgeStatus_textColor4 = $colorblind_deuteranopes_badgeStatus_textColor7 = '#000';
 $colorblind_deuteranopes_badgeStatus1 = $colorblind_deuteranopes_badgeWarning;
 $colorblind_deuteranopes_badgeStatus_textColor1 = '#000';
+
+if (!empty($_GET['darkmode']) || !empty($conf->global->THEME_DARKMODEENABLED)){
+    $colorbackhmenu1 = '29,30,32'; // topmenu
+    $colorbackvmenu1 = '43,44,46'; // vmenu
+    //$colortopbordertitle1 = '215,215,215'; // top border of title
+    $colorbacktitle1 = '43,45,47'; // title of tables,list
+    $colorbacktabcard1 = '29,30,32'; // card
+    $colorbacktabactive = '220,220,220';
+    $colorbacklineimpair1 = '56,57,61'; // line impair
+    $colorbacklineimpair2 = '43,45,47'; // line impair
+    $colorbacklinepair1 = '56,57,61'; // line pair
+    $colorbacklinepair2 = '43,45,47'; // line pair
+    $colorbacklinepairhover = '43,45,47'; // line hover
+    $colorbacklinepairchecked = '14,92,205'; // line checked
+    //$colorbacklinebreak = '248,247,244'; // line break
+    $colorbackbody = $colorbacktabcard1; /* colorbacktabcard1 m ust be same than colorbackbody */
+    $colorbackmobilemenu = '8,8,8';
+    $colortexttitlenotab = '220,220,220'; // 150,90,121 140,80,10 or 10,140,80  #875a7b  green=0,123,140, violet: 0,50,120
+    $colortexttitlenotab2 = '220,220,220'; // 150,90,121 140,80,10 or 10,140,80  #875a7b  green=0,123,140, violet: 0,50,120
+    $colortexttitle = '200,255,255';
+    $colortexttitlelink = '67,144,220';
+    $colortext = '220,220,220';
+    $colortextlink = '67,144,220';
+    $toolTipBgColor = '#2b2d2f'; //'43,45,47';
+    $toolTipFontColor = '#dcdcdc'; // '220,220,220';
+}

@@ -442,6 +442,17 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 	if (file_exists(DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php')) {
 		include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
 	}
+	
+	// Set text color to black or white
+	$spancolor = join(',', colorStringToArray($colorbackhmenu1)); // Normalize value to 'x,y,z'
+	$tmppart = explode(',', $spancolor);
+	$tmpval = (!empty($tmppart[0]) ? $tmppart[0] : 0) + (!empty($tmppart[1]) ? $tmppart[1] : 0) + (!empty($tmppart[2]) ? $tmppart[2] : 0);
+	if ($tmpval <= 460) {
+	    $spanbgcolor = '220,220,220';
+	} else {
+	    $spanbgcolor = '29,30,32';
+	}
+	
 
 	// Show logo
 	if ($foruserprofile) {
@@ -525,6 +536,8 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 		if ($edit) print '<br>('.$langs->trans("NotSupportedByAllThemes").', '.$langs->trans("PressF5AfterChangingThis").')';
 		print '</td>';*/
 	} else {
+	    $default = (empty($colorbackbody) ? 'ffffff' : colorArrayToHex(colorStringToArray($colorbackbody)));
+	    
 		print '<tr class="oddeven">';
 		print '<td>'.$langs->trans("BackgroundColor").'</td>';
 		print '<td colspan="'.($colspan - 1).'">';
@@ -539,7 +552,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 				print $langs->trans("Default");
 			}
 		}
-		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong>ffffff</strong> ';
+		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong><span style="background: rgb('.$spanbgcolor.'); color : #'.$default.';">'.$default.'</span></strong> ';
 		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes").', '.$langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
@@ -583,7 +596,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 				print $langs->trans("Default");
 			}
 		}
-		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong>'.$default.'</strong> ';
+		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong><span style="background: rgb('.$spanbgcolor.'); color : #'.$default.';">'.$default.'</span></strong> ';
 		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes").', '.$langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
@@ -627,7 +640,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 				print $langs->trans("Default");
 			}
 		}
-		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong>'.$default.'</strong> ';
+		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong><span style="background: rgb('.$spanbgcolor.'); color : #'.$default.';">'.$default.'</span></strong> ';
 		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes").', '.$langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
@@ -666,7 +679,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 		} else {
 			print $formother->showColor($conf->global->THEME_ELDY_BACKTITLE1, $langs->trans("Default"));
 		}
-		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong>'.$default.'</strong> '; // $colorbacktitle1 in CSS
+		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong><span style="background: rgb('.$spanbgcolor.'); color : #'.$default.';">'.$default.'</span></strong> ';
 		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes").', '.$langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 
@@ -732,7 +745,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 				print $langs->trans("Default");
 			}
 		}
-		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong>'.$default.'</strong> ';
+		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong><span style="background: rgb('.$spanbgcolor.'); color : #'.$default.';">'.$default.'</span></strong> ';
 		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes").', '.$langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
@@ -756,7 +769,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 				print $langs->trans("Default");
 			}
 		}
-		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong>'.$default.'</strong> ';
+		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong><span style="background: rgb('.$spanbgcolor.'); color : #'.$default.';">'.$default.'</span></strong> ';
 		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes").', '.$langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
@@ -851,7 +864,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 				print $langs->trans("Default");
 			}
 		}
-		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong>'.$default.'</strong> ';
+		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong><span style="background: rgb('.$spanbgcolor.'); color : #'.$default.';">'.$default.'</span></strong> ';
 		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes").', '.$langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 	}
@@ -899,7 +912,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 				print $langs->trans("Default");
 			}
 		}
-		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong>'.$default.'</strong> ';
+		print ' &nbsp; <span class="nowraponall opacitymedium">'.$langs->trans("Default").'</span>: <strong><span style="background: rgb('.$spanbgcolor.'); color : #'.$default.';">'.$default.'</span></strong> ';
 		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes").', '.$langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
@@ -925,7 +938,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 				}
 			}
 		}
-		print ' &nbsp; <span class="opacitymedium">'.$langs->trans("Default").'</span>: <strong>'.$default.'</strong> ';
+		print ' &nbsp; <span class="opacitymedium">'.$langs->trans("Default").'</span>: <strong><span style="background: rgb('.$spanbgcolor.'); color : #'.$default.';">'.$default.'</span></strong> ';
 		print $form->textwithpicto('', $langs->trans("MAIN_OPTIMIZEFORTEXTBROWSERDesc"));
 		print '</td>';
 		print '</tr>';
@@ -977,7 +990,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 				print yn(0);
 			}
 		}
-		print ' &nbsp; <span class="opacitymedium">'.$langs->trans("Default").'</span>: <strong>'.$default.'</strong> ';
+		print ' &nbsp; <span class="opacitymedium">'.$langs->trans("Default").'</span>: <strong><span style="background: rgb('.$spanbgcolor.'); color : #'.$default.';">'.$default.'</span></strong> ';
 		print $form->textwithpicto('', $langs->trans("MAIN_OPTIMIZEFORCOLORBLINDDesc"));
 		print '</td>';
 		print '</tr>';
