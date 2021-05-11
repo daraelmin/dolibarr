@@ -427,6 +427,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 	print '</td></tr>';
 
 	// Set variables of theme
+	$colorbackbody = 'ffffff'; // by default themes are bright
 	$colorbackhmenu1 = '';
 	$colorbackvmenu1 = '';
 	$colortexttitlenotab = '';
@@ -443,16 +444,11 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 		include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
 	}
 	
-	// Set text color to black or white
-	$spancolor = join(',', colorStringToArray($colorbackhmenu1)); // Normalize value to 'x,y,z'
+	// Set text spancolor and spanbgcolor to dark or bright according to colorbackbody
+	$spancolor = join(',', colorArrayToHex(colorStringToArray($colorbackbody))); // Normalize value to 'x,y,z'
 	$tmppart = explode(',', $spancolor);
 	$tmpval = (!empty($tmppart[0]) ? $tmppart[0] : 0) + (!empty($tmppart[1]) ? $tmppart[1] : 0) + (!empty($tmppart[2]) ? $tmppart[2] : 0);
-	if ($tmpval <= 460) {
-	    $spanbgcolor = '220,220,220';
-	} else {
-	    $spanbgcolor = '29,30,32';
-	}
-	
+	$spanbgcolor = ($tmpval <= 460) ? '220,220,220' : '29,30,32'; // bright or dark (but not exactly white or black)
 
 	// Show logo
 	if ($foruserprofile) {
@@ -536,7 +532,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 		if ($edit) print '<br>('.$langs->trans("NotSupportedByAllThemes").', '.$langs->trans("PressF5AfterChangingThis").')';
 		print '</td>';*/
 	} else {
-	    $default = (empty($colorbackbody) ? 'ffffff' : colorArrayToHex(colorStringToArray($colorbackbody)));
+		$default = colorArrayToHex(colorStringToArray($colorbackbody));
 	    
 		print '<tr class="oddeven">';
 		print '<td>'.$langs->trans("BackgroundColor").'</td>';
