@@ -445,7 +445,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 	}
 	
 	// Set text spancolor and spanbgcolor to dark or bright according to colorbackbody
-	$spancolor = join(',', colorArrayToHex(colorStringToArray($colorbackbody))); // Normalize value to 'x,y,z'
+	$spancolor = join(',', (colorStringToArray($colorbackbody))); // Normalize value to 'x,y,z'
 	$tmppart = explode(',', $spancolor);
 	$tmpval = (!empty($tmppart[0]) ? $tmppart[0] : 0) + (!empty($tmppart[1]) ? $tmppart[1] : 0) + (!empty($tmppart[2]) ? $tmppart[2] : 0);
 	$spanbgcolor = ($tmpval <= 460) ? '220,220,220' : '29,30,32'; // bright or dark (but not exactly white or black)
