@@ -30,25 +30,25 @@
 	--colortextlink: rgb(<?php print $colortextlink; ?>);
 	--colortextbackhmenu: rgb(<?php print $colortextbackhmenu; ?>);
 	--colortextbackvmenu: rgb(<?php print $colortextbackvmenu; ?>);
-	--listetotal: rgb(<?php print $listetotal; ?>); //#888888;
-	--inputbackgroundcolor: rgb(<?php print $inputbackgroundcolor; ?>); //#FFF;
-	--inputbordercolor: rgba(<?php print $inputbordercolor; ?>,.2); // rgba(0,0,0,.2);
-	--tooltipbgcolor: <?php print $toolTipBgColor; ?>;
-	--tooltipfontcolor : <?php print $toolTipFontColor; ?>;
-	--oddevencolor: rgb(<?php print $oddevencolor; ?>); //#202020;
-	--colorboxstatsborder: rgb(<?php print $colorboxstatsborder; ?>); //#e0e0e0;
-	--dolgraphbg: rgb(<?php print $dolgraphbg; ?>); // rgba(255,255,255,0);
-	--fieldrequiredcolor: rgb(<?php print $fieldrequiredcolor; ?>); //#400030;
+	--listetotal: rgb(<?php print $listetotal; ?>); /*#888888*/
+	--inputbackgroundcolor: rgb(<?php print $inputbackgroundcolor; ?>); /*#FFF*/
+	--inputbordercolor: rgba(<?php print $inputbordercolor; ?>,0.2); /* rgba(0,0,0,.2)*/
+	--tooltipbgcolor: rgba(<?php print $toolTipBgColor; ?>,0.96);
+	--tooltipfontcolor : rgb(<?php print $toolTipFontColor; ?>);
+	--oddevencolor: rgb(<?php print $oddevencolor; ?>); /*#202020*/
+	--colorboxstatsborder: rgb(<?php print $colorboxstatsborder; ?>); /*#e0e0e0*/
+	--dolgraphbg: rgba(<?php print $dolgraphbg; ?>,0); /* rgba(255,255,255,0)*/
+	--fieldrequiredcolor: rgb(<?php print $fieldrequiredcolor; ?>); /*#400030*/
 	--colortextbacktab: rgb(<?php print $colortextbacktab; ?>);
-	--colorboxiconbg: rgb(<?php print $colorboxiconbg; ?>); //#eee;
-	--refidnocolor: rgb(<?php print $refidnocolor; ?>); //#444;
-	--tableforfieldcolor: rgb(<?php print $tableforfieldcolor; ?>); //#666;
-	--amountremaintopaycolor: rgb(<?php print $amountremaintopaycolor; ?>); //#880000;
-	--amountpaymentcomplete: rgb(<?php print $amountpaymentcomplete; ?>); //#008800;
-	--amountremaintopaybackcolor: rgb(<?php print $amountremaintopaybackcolor; ?>); //none;
-	--productlinestockod: rgb(<?php print $productlinestockod; ?>); //#002200;
-	--productlinestocktoolow: rgb(<?php print $productlinestocktoolow; ?>); //#884400;
-	--infoboxmoduleenabledbgcolor : linear-gradient(0.4turn, #fff, #fff, #fff, #e4efe8);
+	--colorboxiconbg: rgb(<?php print $colorboxiconbg; ?>); /*#eee*/
+	--refidnocolor: rgb(<?php print $refidnocolor; ?>); /*#444*/
+	--tableforfieldcolor: rgb(<?php print $tableforfieldcolor; ?>); /*#666*/
+	--amountremaintopaycolor: rgb(<?php print $amountremaintopaycolor; ?>); /*#880000*/
+	--amountpaymentcomplete: rgb(<?php print $amountpaymentcomplete; ?>); /*#008800*/
+	--amountremaintopaybackcolor: rgb(<?php print $amountremaintopaybackcolor; ?>); /*none*/
+	--productlinestockod: rgb(<?php print $productlinestockod; ?>); /*#002200*/
+	--productlinestocktoolow: rgb(<?php print $productlinestocktoolow; ?>); /*#884400*/
+	--infoboxmoduleenabledbgcolor : <?php print $infoboxmoduleenabledbgcolor; ?>;/*linear-gradient(0.4turn, #fff, #fff, #fff, #e4efe8)*/
 }
 
 <?php
@@ -57,23 +57,8 @@ if (!empty($conf->global->THEME_DARKMODEENABLED)) {
 	if ($conf->global->THEME_DARKMODEENABLED != 2) {
 		print "@media (prefers-color-scheme: dark) {";
 	}
-	print ":rootsy {
-	            --listetotal: rgb(245, 83, 158);
-	            --inputbackgroundcolor: #2b2d2f;
-	            --inputbordercolor: rgb(220,220,220);
-	            --oddevencolor: rgb(220,220,220);
-	            --colorboxstatsborder: rgb(65,100,138);
-	            --dolgraphbg: #1d1e20;
-	            --fieldrequiredcolor: rgb(250,183,59);
-	            --colortextbacktab: rgb(220,220,220);
-	            --colorboxiconbg: rgb(36,38,39);
-	            --refidnocolor: rgb(220,220,220);
-	            --tableforfieldcolor:rgb(220,220,220);
-	            --amountremaintopaycolor:rgb(252,84,91);
-	            --amountpaymentcomplete:rgb(101,184,77);
-	            --amountremaintopaybackcolor:rbg(245,130,46);
-				--infoboxmoduleenabledbgcolor : linear-gradient(0.4turn, #000, #000, #000, #274231);
-	      }
+	print ":root {
+	            }
 
 		body, button {
 			color: #bbb;
@@ -358,7 +343,7 @@ td.rightborder {
 }
 
 td.amount, span.amount, div.amount {
-	color: #006666;
+	color: #00BBBB;
 }
 td.actionbuttons a {
 	padding-left: 6px;

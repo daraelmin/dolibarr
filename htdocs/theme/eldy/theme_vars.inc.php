@@ -69,11 +69,29 @@ $colortexttitle = '40, 40, 60';
 $colortexttitlelink = '10, 20, 100';
 $colortext = '0,0,0';
 $colortextlink = '10, 20, 100';
+$listetotal = ''; // #888888
+$inputbackgroundcolor = '255,255,255'; // #FFF
+$inputbordercolor = '0,0,0';  // rgba(0,0,0,.2)
+$oddevencolor = '32,32,32';  // #202020
+$colorboxstatsborder = '224,224,224';  // #e0e0e0
+$dolgraphbg = '255,255,255'; // rgba(255,255,255,0)
+$fieldrequiredcolor = '64,0,48'; //#400030
+//$colortextbacktab = ;
+$colorboxiconbg = '238,238,238';   //#eee
+$refidnocolor = '68,68,68';   //#444
+$tableforfieldcolor = '102,102,102';   //#666
+$amountremaintopaycolor = '136,0,0';   //#880000
+$amountpaymentcomplete = '008800';   //#008800
+$amountremaintopaybackcolor = 'none';   //none
+$productlinestockod = '0,34,0';   //#002200
+$productlinestocktoolow = '136,68,0';   //#884400
+$infoboxmoduleenabledbgcolor  = 'linear-gradient(0.4turn, #fff, #fff, #fff, #e4efe8)';
+$toolTipBgColor = '255, 255, 255';
+$toolTipFontColor = '51,51,51';
+
 $fontsize = '0.90em';
 $fontsizesmaller = '0.75em';
 $topMenuFontSize = '1.1em';
-$toolTipBgColor = 'rgba(255, 255, 255, 0.96)';
-$toolTipFontColor = '#333';
 
 // text color
 $textSuccess   = '#28a745';
@@ -124,7 +142,7 @@ $colorblind_deuteranopes_badgeStatus_textColor4 = $colorblind_deuteranopes_badge
 $colorblind_deuteranopes_badgeStatus1 = $colorblind_deuteranopes_badgeWarning;
 $colorblind_deuteranopes_badgeStatus_textColor1 = '#000';
 
-if (!empty($_GET['darkmode']) || !empty($conf->global->THEME_DARKMODEENABLED)){
+if (!empty($_GET['darkmode']) || (!empty($conf->global->THEME_DARKMODEENABLED) && $conf->global->THEME_DARKMODEENABLED == 2)){
     $colorbackhmenu1 = '29,30,32'; // topmenu
     $colorbackvmenu1 = '43,44,46'; // vmenu
     //$colortopbordertitle1 = '215,215,215'; // top border of title
@@ -147,5 +165,20 @@ if (!empty($_GET['darkmode']) || !empty($conf->global->THEME_DARKMODEENABLED)){
     $colortext = '220,220,220';
     $colortextlink = '67,144,220';
     $toolTipBgColor = '#2b2d2f'; //'43,45,47';
-    $toolTipFontColor = '#dcdcdc'; // '220,220,220';
+    $toolTipFontColor = '#dcdcdc'; // '220,220,220'; --listetotal = '245, 83, 158);
+    $inputbackgroundcolor = '43,45,47'; // #2b2d2f;
+    $inputbordercolor = '220,220,220';
+    $oddevencolor = '220,220,220';
+    $colorboxstatsborder = '65,100,138';
+    $dolgraphbg = '29,30,32'; // #1d1e20;
+    $fieldrequiredcolor = '250,183,59';
+    $colortextbacktab = '220,220,220';
+    $colorboxiconbg = '36,38,39';
+    $refidnocolor = '220,220,220';
+    $tableforfieldcolor = '220,220,220';
+    $amountremaintopaycolor = '252,84,91';
+    $amountpaymentcomplete = '101,184,77';
+    $amountremaintopaybackcolor = '245,130,46';
+    $infoboxmoduleenabledbgcolor = 'linear-gradient(0.4turn, #000, #000, #000, #274231)';
+        
 }
