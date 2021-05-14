@@ -69,19 +69,19 @@ $colortexttitle = '40, 40, 60';
 $colortexttitlelink = '10, 20, 100';
 $colortext = '0,0,0';
 $colortextlink = '10, 20, 100';
-$listetotal = ''; // #888888
+$listetotal = '136,136,136'; // #888888
 $inputbackgroundcolor = '255,255,255'; // #FFF
 $inputbordercolor = '0,0,0';  // rgba(0,0,0,.2)
 $oddevencolor = '32,32,32';  // #202020
 $colorboxstatsborder = '224,224,224';  // #e0e0e0
 $dolgraphbg = '255,255,255'; // rgba(255,255,255,0)
 $fieldrequiredcolor = '64,0,48'; //#400030
-//$colortextbacktab = ;
+$colortextbacktab = '0,0,0;
 $colorboxiconbg = '238,238,238';   //#eee
 $refidnocolor = '68,68,68';   //#444
 $tableforfieldcolor = '102,102,102';   //#666
 $amountremaintopaycolor = '136,0,0';   //#880000
-$amountpaymentcomplete = '008800';   //#008800
+$amountpaymentcomplete = '0,136,0';   //#008800
 $amountremaintopaybackcolor = 'none';   //none
 $productlinestockod = '0,34,0';   //#002200
 $productlinestocktoolow = '136,68,0';   //#884400
@@ -145,7 +145,7 @@ $colorblind_deuteranopes_badgeStatus_textColor1 = '#000';
 if (!empty($_GET['darkmode']) || (!empty($conf->global->THEME_DARKMODEENABLED) && $conf->global->THEME_DARKMODEENABLED == 2)){
     $colorbackhmenu1 = '29,30,32'; // topmenu
     $colorbackvmenu1 = '43,44,46'; // vmenu
-    //$colortopbordertitle1 = '215,215,215'; // top border of title
+    $colortopbordertitle1 = '40,40,40'; // top border of title
     $colorbacktitle1 = '43,45,47'; // title of tables,list
     $colorbacktabcard1 = '29,30,32'; // card
     $colorbacktabactive = '220,220,220';
@@ -155,7 +155,7 @@ if (!empty($_GET['darkmode']) || (!empty($conf->global->THEME_DARKMODEENABLED) &
     $colorbacklinepair2 = '43,45,47'; // line pair
     $colorbacklinepairhover = '43,45,47'; // line hover
     $colorbacklinepairchecked = '14,92,205'; // line checked
-    //$colorbacklinebreak = '248,247,244'; // line break
+    $colorbacklinebreak = '16,16,16'; // line break
     $colorbackbody = $colorbacktabcard1; /* colorbacktabcard1 m ust be same than colorbackbody */
     $colorbackmobilemenu = '8,8,8';
     $colortexttitlenotab = '220,220,220'; // 150,90,121 140,80,10 or 10,140,80  #875a7b  green=0,123,140, violet: 0,50,120
@@ -165,7 +165,8 @@ if (!empty($_GET['darkmode']) || (!empty($conf->global->THEME_DARKMODEENABLED) &
     $colortext = '220,220,220';
     $colortextlink = '67,144,220';
     $toolTipBgColor = '#2b2d2f'; //'43,45,47';
-    $toolTipFontColor = '#dcdcdc'; // '220,220,220'; --listetotal = '245, 83, 158);
+    $toolTipFontColor = '#dcdcdc'; // '220,220,220';
+    $listetotal = '245, 83, 158';
     $inputbackgroundcolor = '43,45,47'; // #2b2d2f;
     $inputbordercolor = '220,220,220';
     $oddevencolor = '220,220,220';
