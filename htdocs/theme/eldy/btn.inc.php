@@ -25,7 +25,7 @@ if (!empty($conf->global->THEME_DARKMODEENABLED)) {
 		print "@media (prefers-color-scheme: dark) {";
 	}
 	print "
-      :root {
+      :rootsy {
 
             --btncolortext: ;
             --btncolorbg: rgb(26,27,27);

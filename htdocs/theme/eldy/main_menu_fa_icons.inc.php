@@ -15,7 +15,7 @@
 	-webkit-font-smoothing: antialiased;
 	text-align:center;
 	text-decoration:none;
-	color: #<?php echo $colortextbackhmenu; ?>;
+	color: var(--colortextbackhmenu);
 }
 
 .fa-15x {
@@ -64,7 +64,7 @@ div.mainmenu.cashdesk .tmenuimage {
 	display: inline-block;
 	vertical-align: middle;
 	height: <?php echo $topMenuFontSize; ?>;
-	background-color: #<?php echo $colortextbackhmenu; ?>;
+	background-color: var(--colortextbackhmenu);
 	width: 100%;
 	-webkit-mask: url(<?php echo DOL_URL_ROOT.'/theme/common/fontawesome-5/svgs/solid/cash-register.svg' ?>) no-repeat 50% 50%; /* for old webkit browser */
 	mask: url(<?php echo DOL_URL_ROOT.'/theme/common/fontawesome-5/svgs/solid/cash-register.svg' ?>) no-repeat 50% 50%;
