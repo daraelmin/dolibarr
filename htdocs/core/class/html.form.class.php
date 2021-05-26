@@ -4889,7 +4889,7 @@ class Form
                          			var more = "";
 									var inputvalue;
                          			if ($("input[name=\'" + inputname + "\']").attr("type") == "radio") {
-										inputvalue = $("input[name=\'" + inputname + "\']").val();
+										inputvalue = $("input[name=\'" + inputname + "\']:checked").val();
 									} else {
                          		    	if ($("#" + inputname).attr("type") == "checkbox") { more = ":checked"; }
                          				inputvalue = $("#" + inputname + more).val();
@@ -6924,7 +6924,7 @@ class Form
 		if ($addjscombo && $jsbeautify) {
 			// Enhance with select2
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
-			$out .= ajax_combobox($htmlname);
+			$out .= ajax_combobox($htmlname, array(), 0, 0, 'resolve', $show_empty < 0 ? (string) $show_empty : '-1');
 		}
 
 		$out .= '<select id="'.preg_replace('/^\./', '', $htmlname).'" '.($disabled ? 'disabled="disabled" ' : '').'class="flat '.(preg_replace('/^\./', '', $htmlname)).($morecss ? ' '.$morecss : '').'"';
@@ -8208,7 +8208,7 @@ class Form
 		} elseif ($modulepart == 'contact')	{
 			$dir = $conf->societe->multidir_output[$entity].'/contact';
 			if (!empty($object->photo)) {
-				if (dolIsAllowedForPreview($object->logo)) {
+				if (dolIsAllowedForPreview($object->photo)) {
 					if ((string) $imagesize == 'mini') {
 						$file = get_exdir(0, 0, 0, 0, $object, 'contact').'photos/'.getImageFileNameForSize($object->photo, '_mini');
 					} elseif ((string) $imagesize == 'small') {
@@ -8224,7 +8224,7 @@ class Form
 		} elseif ($modulepart == 'userphoto') {
 			$dir = $conf->user->dir_output;
 			if (!empty($object->photo)) {
-				if (dolIsAllowedForPreview($object->logo)) {
+				if (dolIsAllowedForPreview($object->photo)) {
 					if ((string) $imagesize == 'mini') {
 						$file = get_exdir(0, 0, 0, 0, $object, 'user').getImageFileNameForSize($object->photo, '_mini');
 					} elseif ((string) $imagesize == 'small') {
@@ -8243,7 +8243,7 @@ class Form
 		} elseif ($modulepart == 'memberphoto')	{
 			$dir = $conf->adherent->dir_output;
 			if (!empty($object->photo)) {
-				if (dolIsAllowedForPreview($object->logo)) {
+				if (dolIsAllowedForPreview($object->photo)) {
 					if ((string) $imagesize == 'mini') {
 						$file = get_exdir(0, 0, 0, 0, $object, 'member').'photos/'.getImageFileNameForSize($object->photo, '_mini');
 					} elseif ((string) $imagesize == 'small') {
@@ -8263,7 +8263,7 @@ class Form
 			// Generic case to show photos
 			$dir = $conf->$modulepart->dir_output;
 			if (!empty($object->photo)) {
-				if (dolIsAllowedForPreview($object->logo)) {
+				if (dolIsAllowedForPreview($object->photo)) {
 					if ((string) $imagesize == 'mini') {
 						$file = get_exdir($id, 2, 0, 0, $object, $modulepart).'photos/'.getImageFileNameForSize($object->photo, '_mini');
 					} elseif ((string) $imagesize == 'small') {
