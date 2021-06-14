@@ -423,7 +423,7 @@ if ($search_categ == -2) {
 	$sql .= " AND cu.fk_categorie IS NULL";
 }
 if ($search_warehouse > 0) {
-	$sql .= " AND u.fk_warehouse = ".$db->escape($search_warehouse);
+	$sql .= " AND u.fk_warehouse = ".((int) $search_warehouse);
 }
 if ($mode == 'employee' && empty($user->rights->salaries->readall)) {
 	$sql .= " AND u.rowid IN (".$db->sanitize(join(',', $childids)).")";
@@ -854,7 +854,7 @@ while ($i < ($limit ? min($num, $limit) : $num)) {
 	print '<tr class="oddeven">';
 
 	if (!empty($arrayfields['u.login']['checked'])) {
-		print '<td class="nowraponall">';
+		print '<td class="nowraponall tdoverflowmax150">';
 		print $li;
 		if (!empty($conf->multicompany->enabled) && $obj->admin && !$obj->entity) {
 			print img_picto($langs->trans("SuperAdministrator"), 'redstar', 'class="valignmiddle paddingleft"');
