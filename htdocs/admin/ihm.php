@@ -41,7 +41,7 @@ if (!$user->admin) {
 }
 
 $action = GETPOST('action', 'aZ09');
-$contextpage = GETPOST('contextpage', 'aZ') ?GETPOST('contextpage', 'aZ') : 'adminihm'; // To manage different context of search
+$contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'adminihm'; // To manage different context of search
 
 if (!defined("MAIN_MOTD")) {
 	define("MAIN_MOTD", "");

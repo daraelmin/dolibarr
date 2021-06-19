@@ -156,7 +156,7 @@ if (!empty($_GET['darkmode']) || (!empty($conf->global->THEME_DARKMODEENABLED) &
     $colorbacklinepairhover = '43,45,47'; // line hover
     $colorbacklinepairchecked = '14,92,205'; // line checked
     $colorbacklinebreak = '16,16,16'; // line break
-    $colorbackbody = $colorbacktabcard1; /* colorbacktabcard1 m ust be same than colorbackbody */
+    $colorbackbody = $colorbacktabcard1; /* colorbacktabcard1 must be same than colorbackbody */
     $colorbackmobilemenu = '8,8,8';
     $colortexttitlenotab = '220,220,220'; // 150,90,121 140,80,10 or 10,140,80  #875a7b  green=0,123,140, violet: 0,50,120
     $colortexttitlenotab2 = '220,220,220'; // 150,90,121 140,80,10 or 10,140,80  #875a7b  green=0,123,140, violet: 0,50,120
