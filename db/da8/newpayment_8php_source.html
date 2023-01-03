@@ -10,16 +10,15 @@
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
 <link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
 <script type="text/javascript" src="../../search/search.js"></script>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(function() {
-    if ($('.searchresults').length > 0) { searchBox.DOMSearchField().focus(); }
-  });
-  /* @license-end */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
 </script>
-<link rel="search" href="../../search_opensearch.php?v=opensearch.xml" type="application/opensearchdescription+xml" title="dolibarr"/>
 <link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -50,17 +49,20 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
       <li><a href="../../modules.html"><span>Modules</span></a></li>
       <li><a href="../../annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="../../files.html"><span>Files</span></a></li>
-      <li><a href="../../examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
-          <div class="left">
-            <form id="FSearchBox" action="../../search.php" method="get">
-              <img id="MSearchSelect" src="../../search/mag.svg" alt=""/>
-              <input type="text" id="MSearchField" name="query" value="Search" size="20" accesskey="S" 
-                     onfocus="searchBox.OnSearchFieldFocus(true)" 
-                     onblur="searchBox.OnSearchFieldFocus(false)"/>
-            </form>
-          </div><div class="right"></div>
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.svg" alt=""/></a>
+          </span>
         </div>
       </li>
     </ul>
@@ -71,6 +73,20 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
       <li><a href="../../globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
 <div id="nav-path" class="navpath">
   <ul>
 <li class="navelem"><a class="el" href="../../dir_eaa9681d2effa5cf690be6ac05e74743.html">htdocs</a></li><li class="navelem"><a class="el" href="../../dir_534092f3fd71c2526a77617132385278.html">public</a></li><li class="navelem"><a class="el" href="../../dir_6d95301fb7177548330e01cb639b35fd.html">payment</a></li>  </ul>
@@ -2769,7 +2785,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
 <div class="ttc" id="afunctions_8lib_8php_html_ae54e3727f7a757bd40513f88c0c7da47"><div class="ttname"><a href="../../d9/d69/functions_8lib_8php.html#ae54e3727f7a757bd40513f88c0c7da47">isModEnabled</a></div><div class="ttdeci">isModEnabled($module)</div><div class="ttdoc">Is Dolibarr module enabled.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d69/functions_8lib_8php_source.html#l00137">functions.lib.php:137</a></div></div>
 <div class="ttc" id="afunctions_8lib_8php_html_af601a73af63cca748b9a57e810259372"><div class="ttname"><a href="../../d9/d69/functions_8lib_8php.html#af601a73af63cca748b9a57e810259372">dol_syslog</a></div><div class="ttdeci">dol_syslog($message, $level=LOG_INFO, $ident=0, $suffixinfilename='', $restricttologhandler='', $logcontext=null)</div><div class="ttdoc">Write log message into outputs.</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d69/functions_8lib_8php_source.html#l01611">functions.lib.php:1611</a></div></div>
 <div class="ttc" id="ajournals__list_8php_html_a90b302d5a7120cd0d34478405407d439"><div class="ttname"><a href="../../d9/dc1/journals__list_8php.html#a90b302d5a7120cd0d34478405407d439">if</a></div><div class="ttdeci">if(!defined( 'CSRFCHECK_WITH_TOKEN'))</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/dc1/journals__list_8php_source.html#l00025">journals_list.php:25</a></div></div>
-<div class="ttc" id="amd_2style_8css_8php_html_a06c59e159762d9e08880f2cb47a1371a"><div class="ttname"><a href="../../dd/dd1/md_2style_8css_8php.html#a06c59e159762d9e08880f2cb47a1371a">button</a></div><div class="ttdeci">table tableforfield button</div><div class="ttdoc">0 = Do not include form tag and submit button -1 = Do not include form tag but include submit button</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dd1/md_2style_8css_8php_source.html#l00838">style.css.php:838</a></div></div>
+<div class="ttc" id="amd_2style_8css_8php_html_a06c59e159762d9e08880f2cb47a1371a"><div class="ttname"><a href="../../dd/dd1/md_2style_8css_8php.html#a06c59e159762d9e08880f2cb47a1371a">button</a></div><div class="ttdeci">table tableforfield button</div><div class="ttdoc">0 = Do not include form tag and submit button -1 = Do not include form tag but include submit button</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dd1/md_2style_8css_8php_source.html#l00843">style.css.php:843</a></div></div>
 <div class="ttc" id="apaybox_8lib_8php_html_ab027a215b0dab80316970a00d637e248"><div class="ttname"><a href="../../d6/d79/paybox_8lib_8php.html#ab027a215b0dab80316970a00d637e248">print_paybox_redirect</a></div><div class="ttdeci">print_paybox_redirect($PRICE, $CURRENCY, $EMAIL, $urlok, $urlko, $TAG)</div><div class="ttdoc">Create a redirect form to paybox form.</div><div class="ttdef"><b>Definition:</b> <a href="../../d6/d79/paybox_8lib_8php_source.html#l00039">paybox.lib.php:39</a></div></div>
 <div class="ttc" id="apaypal_8lib_8php_html_ad1a2bdd4165ba70a3f560d09655d8cef"><div class="ttname"><a href="../../df/dc8/paypal_8lib_8php.html#ad1a2bdd4165ba70a3f560d09655d8cef">print_paypal_redirect</a></div><div class="ttdeci">print_paypal_redirect($paymentAmount, $currencyCodeType, $paymentType, $returnURL, $cancelURL, $tag)</div><div class="ttdoc">Send redirect to paypal to browser.</div><div class="ttdef"><b>Definition:</b> <a href="../../df/dc8/paypal_8lib_8php_source.html#l00070">paypal.lib.php:70</a></div></div>
 <div class="ttc" id="arepair_8php_html_adc47ab40d9a5ded8ff8f4e1a3b92a208"><div class="ttname"><a href="../../d1/d2d/repair_8php.html#adc47ab40d9a5ded8ff8f4e1a3b92a208">name</a></div><div class="ttdeci">$conf db name</div><div class="ttdoc">Only used if Module[ID]Name translation string is not found.</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d2d/repair_8php_source.html#l00122">repair.php:122</a></div></div>
@@ -2779,7 +2795,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
 File added into doxygen generated documentation
 -->
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Jan 2 2023 15:11:57 for <a href="https://www.dolibarr.org" title="ERP and CRM open source software">dolibarr</a> by Doxygen 1.9.1 </small></address>
+<address class="footer"><small>Generated on Tue Jan 3 2023 15:12:29 for <a href="https://www.dolibarr.org" title="ERP and CRM open source software">dolibarr</a> by Doxygen 1.9.1 </small></address>
 <br>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-9049390-16"></script>

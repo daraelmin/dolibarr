@@ -10,16 +10,15 @@
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
 <link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
 <script type="text/javascript" src="../../search/search.js"></script>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(function() {
-    if ($('.searchresults').length > 0) { searchBox.DOMSearchField().focus(); }
-  });
-  /* @license-end */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
 </script>
-<link rel="search" href="../../search_opensearch.php?v=opensearch.xml" type="application/opensearchdescription+xml" title="dolibarr"/>
 <link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -50,17 +49,20 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
       <li><a href="../../modules.html"><span>Modules</span></a></li>
       <li><a href="../../annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="../../files.html"><span>Files</span></a></li>
-      <li><a href="../../examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
-          <div class="left">
-            <form id="FSearchBox" action="../../search.php" method="get">
-              <img id="MSearchSelect" src="../../search/mag.svg" alt=""/>
-              <input type="text" id="MSearchField" name="query" value="Search" size="20" accesskey="S" 
-                     onfocus="searchBox.OnSearchFieldFocus(true)" 
-                     onblur="searchBox.OnSearchFieldFocus(false)"/>
-            </form>
-          </div><div class="right"></div>
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.svg" alt=""/></a>
+          </span>
         </div>
       </li>
     </ul>
@@ -71,6 +73,20 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
       <li><a href="../../globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
 <div id="nav-path" class="navpath">
   <ul>
 <li class="navelem"><a class="el" href="../../dir_eaa9681d2effa5cf690be6ac05e74743.html">htdocs</a></li><li class="navelem"><a class="el" href="../../dir_8f98e013d1c23a121d14ceafe1556ce6.html">expedition</a></li>  </ul>
@@ -2722,7 +2738,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
 <div class="ttc" id="aclass_form_projets_html"><div class="ttname"><a href="../../d3/d2f/class_form_projets.html">FormProjets</a></div><div class="ttdoc">Class to manage building of HTML components.</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d2b/html_8formprojet_8class_8php_source.html#l00030">html.formprojet.class.php:31</a></div></div>
 <div class="ttc" id="aclass_modele_pdf_expedition_html_a13dfd09ccbebe730e4a136295dc58409"><div class="ttname"><a href="../../d5/d9a/class_modele_pdf_expedition.html#a13dfd09ccbebe730e4a136295dc58409">ModelePdfExpedition\liste_modeles</a></div><div class="ttdeci">static liste_modeles($db, $maxfilenamelength=0)</div><div class="ttdoc">Return list of active generation models.</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/de7/modules__expedition_8php_source.html#l00053">modules_expedition.php:53</a></div></div>
 <div class="ttc" id="aclass_notify_html"><div class="ttname"><a href="../../d6/d86/class_notify.html">Notify</a></div><div class="ttdoc">Class to manage notifications.</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/df7/notify_8class_8php_source.html#l00033">notify.class.php:34</a></div></div>
-<div class="ttc" id="aclass_order_line_html"><div class="ttname"><a href="../../df/de6/class_order_line.html">OrderLine</a></div><div class="ttdoc">Class to manage order lines.</div><div class="ttdef"><b>Definition:</b> <a href="../../dc/df5/commande_8class_8php_source.html#l04119">commande.class.php:4120</a></div></div>
+<div class="ttc" id="aclass_order_line_html"><div class="ttname"><a href="../../df/de6/class_order_line.html">OrderLine</a></div><div class="ttdoc">Class to manage order lines.</div><div class="ttdef"><b>Definition:</b> <a href="../../dc/df5/commande_8class_8php_source.html#l04143">commande.class.php:4144</a></div></div>
 <div class="ttc" id="aclass_product_html"><div class="ttname"><a href="../../dc/d42/class_product.html">Product</a></div><div class="ttdoc">Class to manage products or services.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dab/product_8class_8php_source.html#l00046">product.class.php:47</a></div></div>
 <div class="ttc" id="aclass_product_html_a61f2081912da302e1a08e5bbc80a9142"><div class="ttname"><a href="../../dc/d42/class_product.html#a61f2081912da302e1a08e5bbc80a9142">Product\TYPE_PRODUCT</a></div><div class="ttdeci">const TYPE_PRODUCT</div><div class="ttdoc">Regular product.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dab/product_8class_8php_source.html#l00542">product.class.php:542</a></div></div>
 <div class="ttc" id="aclass_product_html_afbbb0413edaf7f3b068344fe70ba481d"><div class="ttname"><a href="../../dc/d42/class_product.html#afbbb0413edaf7f3b068344fe70ba481d">Product\TYPE_SERVICE</a></div><div class="ttdeci">const TYPE_SERVICE</div><div class="ttdoc">Service.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dab/product_8class_8php_source.html#l00546">product.class.php:546</a></div></div>
@@ -2774,7 +2790,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
 File added into doxygen generated documentation
 -->
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Jan 2 2023 15:11:19 for <a href="https://www.dolibarr.org" title="ERP and CRM open source software">dolibarr</a> by Doxygen 1.9.1 </small></address>
+<address class="footer"><small>Generated on Tue Jan 3 2023 15:11:59 for <a href="https://www.dolibarr.org" title="ERP and CRM open source software">dolibarr</a> by Doxygen 1.9.1 </small></address>
 <br>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-9049390-16"></script>

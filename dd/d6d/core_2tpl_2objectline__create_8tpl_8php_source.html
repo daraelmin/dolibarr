@@ -10,16 +10,15 @@
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
 <link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
 <script type="text/javascript" src="../../search/search.js"></script>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(function() {
-    if ($('.searchresults').length > 0) { searchBox.DOMSearchField().focus(); }
-  });
-  /* @license-end */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
 </script>
-<link rel="search" href="../../search_opensearch.php?v=opensearch.xml" type="application/opensearchdescription+xml" title="dolibarr"/>
 <link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+<link href="../../doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -50,17 +49,20 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
       <li><a href="../../modules.html"><span>Modules</span></a></li>
       <li><a href="../../annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="../../files.html"><span>Files</span></a></li>
-      <li><a href="../../examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
-          <div class="left">
-            <form id="FSearchBox" action="../../search.php" method="get">
-              <img id="MSearchSelect" src="../../search/mag.svg" alt=""/>
-              <input type="text" id="MSearchField" name="query" value="Search" size="20" accesskey="S" 
-                     onfocus="searchBox.OnSearchFieldFocus(true)" 
-                     onblur="searchBox.OnSearchFieldFocus(false)"/>
-            </form>
-          </div><div class="right"></div>
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.svg" alt=""/></a>
+          </span>
         </div>
       </li>
     </ul>
@@ -71,6 +73,20 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
       <li><a href="../../globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
 <div id="nav-path" class="navpath">
   <ul>
 <li class="navelem"><a class="el" href="../../dir_eaa9681d2effa5cf690be6ac05e74743.html">htdocs</a></li><li class="navelem"><a class="el" href="../../dir_dbb7cc76f4d8f56337f997fc682508aa.html">core</a></li><li class="navelem"><a class="el" href="../../dir_2b41c6da35aed50a57328d64d795338a.html">tpl</a></li>  </ul>
@@ -1020,7 +1036,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
 <div class="line"><a name="l00937"></a><span class="lineno">  937</span>&#160;    ?&gt;</div>
 <div class="line"><a name="l00938"></a><span class="lineno">  938</span>&#160; </div>
 <div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;    &lt;?php</div>
-<div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;    <span class="keywordflow">if</span> (!empty($conf-&gt;global-&gt;PRODUIT_CUSTOMER_PRICES_BY_QTY)) {</div>
+<div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;    <span class="keywordflow">if</span> (!empty($conf-&gt;global-&gt;PRODUIT_CUSTOMER_PRICES_BY_QTY) || !empty($conf-&gt;global-&gt;PRODUIT_CUSTOMER_PRICES_BY_QTY_MULTIPRICES)) {</div>
 <div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;      ?&gt;</div>
 <div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;      <span class="comment">/* To process customer price per quantity (PRODUIT_CUSTOMER_PRICES_BY_QTY works only if combo product is not an ajax after x key pressed) */</span></div>
 <div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;      var pbq = parseInt($(<span class="stringliteral">&#39;option:selected&#39;</span>, <span class="keyword">this</span>).attr(<span class="stringliteral">&#39;data-pbq&#39;</span>));        <span class="comment">// When select is done from HTML select</span></div>
@@ -1249,7 +1265,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
 <div class="ttc" id="aclass_facture_fournisseur_ligne_rec_html"><div class="ttname"><a href="../../d3/d52/class_facture_fournisseur_ligne_rec.html">FactureFournisseurLigneRec</a></div><div class="ttdoc">Class to manage supplier invoice lines of templates.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dcc/fournisseur_8facture-rec_8class_8php_source.html#l01951">fournisseur.facture-rec.class.php:1952</a></div></div>
 <div class="ttc" id="aclass_facture_ligne_html"><div class="ttname"><a href="../../d3/d13/class_facture_ligne.html">FactureLigne</a></div><div class="ttdoc">Class to manage invoice lines.</div><div class="ttdef"><b>Definition:</b> <a href="../../df/ddc/facture_8class_8php_source.html#l05741">facture.class.php:5742</a></div></div>
 <div class="ttc" id="aclass_facture_ligne_rec_html"><div class="ttname"><a href="../../dc/d37/class_facture_ligne_rec.html">FactureLigneRec</a></div><div class="ttdoc">Class to manage invoice lines of templates.</div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d5a/facture-rec_8class_8php_source.html#l02073">facture-rec.class.php:2074</a></div></div>
-<div class="ttc" id="aclass_order_line_html"><div class="ttname"><a href="../../df/de6/class_order_line.html">OrderLine</a></div><div class="ttdoc">Class to manage order lines.</div><div class="ttdef"><b>Definition:</b> <a href="../../dc/df5/commande_8class_8php_source.html#l04119">commande.class.php:4120</a></div></div>
+<div class="ttc" id="aclass_order_line_html"><div class="ttname"><a href="../../df/de6/class_order_line.html">OrderLine</a></div><div class="ttdoc">Class to manage order lines.</div><div class="ttdef"><b>Definition:</b> <a href="../../dc/df5/commande_8class_8php_source.html#l04143">commande.class.php:4144</a></div></div>
 <div class="ttc" id="aclass_product_html_afbbb0413edaf7f3b068344fe70ba481d"><div class="ttname"><a href="../../dc/d42/class_product.html#afbbb0413edaf7f3b068344fe70ba481d">Product\TYPE_SERVICE</a></div><div class="ttdeci">const TYPE_SERVICE</div><div class="ttdoc">Service.</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/dab/product_8class_8php_source.html#l00546">product.class.php:546</a></div></div>
 <div class="ttc" id="aclass_propale_ligne_html"><div class="ttname"><a href="../../d4/de0/class_propale_ligne.html">PropaleLigne</a></div><div class="ttdoc">Class to manage commercial proposal lines.</div><div class="ttdef"><b>Definition:</b> <a href="../../dc/d3c/propal_8class_8php_source.html#l03898">propal.class.php:3899</a></div></div>
 <div class="ttc" id="aclass_supplier_invoice_line_html"><div class="ttname"><a href="../../d4/db0/class_supplier_invoice_line.html">SupplierInvoiceLine</a></div><div class="ttdoc">Class to manage line invoices.</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/df0/fournisseur_8facture_8class_8php_source.html#l03235">fournisseur.facture.class.php:3236</a></div></div>
@@ -1271,7 +1287,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
 File added into doxygen generated documentation
 -->
 <hr class="footer" />
-<address class="footer"><small>Generated on Mon Jan 2 2023 15:11:35 for <a href="https://www.dolibarr.org" title="ERP and CRM open source software">dolibarr</a> by Doxygen 1.9.1 </small></address>
+<address class="footer"><small>Generated on Tue Jan 3 2023 15:12:11 for <a href="https://www.dolibarr.org" title="ERP and CRM open source software">dolibarr</a> by Doxygen 1.9.1 </small></address>
 <br>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-9049390-16"></script>
