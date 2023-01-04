@@ -403,7 +403,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160; </div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="keywordflow">for</span> ($i = 0, $s = 0; $i &lt; 3; $i++) {</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;      $code = substr($rib, 7 * $i, 7);</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;      $s += (0 + (int) $code) * $coef[$i];</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;      $s += ((int) $code) * $coef[$i];</div>
 <div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    }</div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    <span class="comment">// Soustraction du modulo 97 de $s a 97 pour obtenir la cle</span></div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    $cle_rib = 97 - ($s % 97);</div>
@@ -526,7 +526,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'Search','.html'
 File added into doxygen generated documentation
 -->
 <hr class="footer" />
-<address class="footer"><small>Generated on Tue Jan 3 2023 15:12:17 for <a href="https://www.dolibarr.org" title="ERP and CRM open source software">dolibarr</a> by Doxygen 1.9.1 </small></address>
+<address class="footer"><small>Generated on Wed Jan 4 2023 15:13:29 for <a href="https://www.dolibarr.org" title="ERP and CRM open source software">dolibarr</a> by Doxygen 1.9.1 </small></address>
 <br>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-9049390-16"></script>
